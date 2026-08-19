@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<edmx:Edmx
+    Version="4.0"
+    xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+
+    <edmx:Reference
+        Uri="/odata/v4/procurement/$metadata">
+
+        <edmx:Include
+            Namespace="ProcurementService"
+            Alias="Self"/>
+
+    </edmx:Reference>
+
+
+    <edmx:DataServices>
+
+        <Schema
+            Namespace="pr.tracker.annotations"
+            xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+
+            <!-- ================================================= -->
+            <!-- PURCHASE REQUISITION                              -->
+            <!-- ================================================= -->
+
+            <Annotations
+                Target="ProcurementService.PurchaseRequisition">
+
+
+                <Annotation
+                    Term="UI.HeaderInfo">
+
+                    <Record>
+
+                        <PropertyValue
+                            PropertyPath="PRNumber"/>
+
+                        <PropertyValue
+                            Property="TypeName"
+                            String="Purchase Requisition"/>
+
+                        <PropertyValue
+                            Property="TypeNamePlural"
+                            String="Purchase Requisitions"/>
+
+                    </Record>
+
+                </Annotation>
+
+
+                <!-- ============================================= -->
+                <!-- IDENTIFICATION                                 -->
+                <!-- ============================================= -->
+
+                <Annotation
+                    Term="UI.Identification">
+
+                    <Collection>
+
+                        <Record
+                            Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Label"
+                                String="PR Number"/>
+
+                            <PropertyValue
+                                PropertyPath="PRNumber"/>
+
+                        </Record>
+
+
+                        <Record
+                            Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Label"
+                                String="Department"/>
+
+                            <PropertyValue
+                                PropertyPath="Department"/>
+
+                        </Record>
+
+
+                        <Record
+                            Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Label"
+                                String="Status"/>
+
+                            <PropertyValue
+                                PropertyPath="Status"/>
+
+                        </Record>
+
+
+                        <Record
+                            Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Label"
+                                String="Priority"/>
+
+                            <PropertyValue
+                                PropertyPath="Priority"/>
+
+                        </Record>
+
+                    </Collection>
+
+                </Annotation>
+
+
+                <!-- ============================================= -->
+                <!-- FIELD GROUP                                    -->
+                <!-- ============================================= -->
+
+                <Annotation
+                    Term="UI.FieldGroup"
+                    Qualifier="PRDetails">
+
+                    <Record>
+
+                        <PropertyValue
+                            Property="Label"
+                            String="Purchase Requisition Details"/>
+
+                        <PropertyValue
+                            Property="Data">
+
+                            <Collection>
+
+                                <Record
+                                    Type="UI.DataField">
+
+                                    <PropertyValue
+                                        Property="Label"
+                                        String="PR Number"/>
+
+                                    <PropertyValue
+                                        PropertyPath="PRNumber"/>
+
+                                </Record>
+
+
+                                <Record
+                                    Type="UI.DataField">
+
+                                    <PropertyValue
+                                        Property="Label"
+                                        String="Department"/>
+
+                                    <PropertyValue
+                                        PropertyPath="Department"/>
+
+                                </Record>
+
+
+                                <Record
+                                    Type="UI.DataField">
+
+                                    <PropertyValue
+                                        Property="Label"
+                                        String="Created Date"/>
+
+                                    <PropertyValue
+                                        PropertyPath="CreatedDate"/>
+
+                                </Record>
+
+
+                                <Record
+                                    Type="UI.DataField">
+
+                                    <PropertyValue
+                                        Property="Label"
+                                        String="Expected Approval"/>
+
+                                    <PropertyValue
+                                        PropertyPath="ExpectedApprovalDate"/>
+
+                                </Record>
+
+
+                                <Record
+                                    Type="UI.DataField">
+
+                                    <PropertyValue
+                                        Property="Label"
+                                        String="SLA"/>
+
+                                    <PropertyValue
+                                        PropertyPath="SLAInDays"/>
+
+                                </Record>
+
+
+                                <Record
+                                    Type="UI.DataField">
+
+                                    <PropertyValue
+                                        Property="Label"
+                                        String="Priority"/>
+
+                                    <PropertyValue
+                                        PropertyPath="Priority"/>
+
+                                </Record>
+
+                            </Collection>
+
+                        </PropertyValue>
+
+                    </Record>
+
+                </Annotation>
+
+
+                <!-- ============================================= -->
+                <!-- LINE ITEM                                      -->
+                <!-- ============================================= -->
+
+                <Annotation
+                    Term="UI.LineItem">
+
+                    <Collection>
+
+                        <Record
+                            Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Label"
+                                String="PR Number"/>
+
+                            <PropertyValue
+                                PropertyPath="PRNumber"/>
+
+                        </Record>
+
+
+                        <Record
+                            Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Label"
+                                String="Department"/>
+
+                            <PropertyValue
+                                PropertyPath="Department"/>
+
+                        </Record>
+
+
+                        <Record
+                            Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Label"
+                                String="Created Date"/>
+
+                            <PropertyValue
+                                PropertyPath="CreatedDate"/>
+
+                        </Record>
+
+
+                        <Record
+                            Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Label"
+                                String="SLA"/>
+
+                            <PropertyValue
+                                PropertyPath="SLAInDays"/>
+
+                        </Record>
+
+
+                        <Record
+                            Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Label"
+                                String="Status"/>
+
+                            <PropertyValue
+                                PropertyPath="Status"/>
+
+                        </Record>
+
+
+                        <Record
+                            Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Label"
+                                String="Priority"/>
+
+                            <PropertyValue
+                                PropertyPath="Priority"/>
+
+                        </Record>
+
+                    </Collection>
+
+                </Annotation>
+
+            </Annotations>
+
+
+            <!-- ================================================= -->
+            <!-- PURCHASE ORDER                                    -->
+            <!-- ================================================= -->
+
+            <Annotations
+                Target="ProcurementService.PurchaseOrder">
+
+                <Annotation
+                    Term="UI.HeaderInfo">
+
+                    <Record>
+
+                        <PropertyValue
+                            PropertyPath="PONumber"/>
+
+                        <PropertyValue
+                            Property="TypeName"
+                            String="Purchase Order"/>
+
+                        <PropertyValue
+                            Property="TypeNamePlural"
+                            String="Purchase Orders"/>
+
+                    </Record>
+
+                </Annotation>
+
+            </Annotations>
+
+        </Schema>
+
+    </edmx:DataServices>
+
+</edmx:Edmx>

@@ -1,0 +1,307 @@
+/* =========================================================
+   PR BOTTLENECK TRACKER
+   SAPUI5 / SAP Fiori Horizon Styling
+   ========================================================= */
+
+html,
+body,
+#content {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "72", "72full", Arial, sans-serif;
+    background: #f5f6f7;
+}
+
+/* =========================================================
+   APPLICATION
+   ========================================================= */
+
+.sapUiBody {
+    background: #f5f6f7;
+}
+
+.sapMPage {
+    background: #f5f6f7;
+}
+
+/* =========================================================
+   HERO SECTION
+   ========================================================= */
+
+.heroSection {
+    background: linear-gradient(
+        135deg,
+        #0a6ed1 0%,
+        #0854a0 55%,
+        #073b73 100%
+    );
+
+    border-radius: 0 0 18px 18px;
+
+    padding: 34px 42px;
+
+    margin: 0 0 24px 0;
+
+    min-height: 210px;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.heroTitle {
+    color: #ffffff !important;
+
+    font-size: 2.3rem !important;
+
+    font-weight: 700 !important;
+
+    margin-bottom: 10px !important;
+}
+
+.heroSubtitle {
+    color: rgba(255, 255, 255, 0.92) !important;
+
+    font-size: 1.05rem !important;
+
+    line-height: 1.5;
+}
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+.dashboardSection {
+    padding: 0 28px 28px 28px;
+}
+
+.sectionTitle {
+    color: #1d2d3e !important;
+
+    font-size: 1.25rem !important;
+
+    font-weight: 700 !important;
+
+    margin: 18px 0 12px 0 !important;
+}
+
+/* =========================================================
+   KPI CONTAINER
+   ========================================================= */
+
+.kpiContainer {
+    display: flex;
+
+    width: 100%;
+
+    gap: 16px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 26px;
+}
+
+/* =========================================================
+   KPI TILE
+   ========================================================= */
+
+.kpiTile {
+    background: #ffffff;
+
+    border: 1px solid #e5e7e9;
+
+    border-radius: 14px;
+
+    min-height: 150px;
+
+    flex: 1 1 220px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+
+    overflow: hidden;
+}
+
+.kpiTile:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* =========================================================
+   KPI TEXT
+   ========================================================= */
+
+.kpiTile .sapMGTHeaderText {
+    color: #1d2d3e !important;
+
+    font-weight: 700 !important;
+}
+
+.kpiTile .sapMGTSubHdrTxt {
+    color: #6a6d70 !important;
+}
+
+/* =========================================================
+   RISK COLORS
+   ========================================================= */
+
+.riskHigh {
+    color: #bb0000 !important;
+}
+
+.riskMedium {
+    color: #e76500 !important;
+}
+
+.riskLow {
+    color: #107e3e !important;
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.prTable {
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    border: 1px solid #e5e7e9;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.06);
+
+    overflow: hidden;
+}
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.dashboardCard {
+    background: #ffffff;
+
+    border-radius: 14px;
+
+    border: 1px solid #e5e7e9;
+
+    padding: 18px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.06);
+
+    margin-bottom: 18px;
+}
+
+/* =========================================================
+   AI SECTION
+   ========================================================= */
+
+.aiSection {
+    background: linear-gradient(
+        135deg,
+        #eef5ff,
+        #f7faff
+    );
+
+    border: 1px solid #c6dfff;
+
+    border-radius: 14px;
+
+    padding: 22px;
+
+    margin: 20px 28px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.aiTitle {
+    color: #0a6ed1 !important;
+
+    font-size: 1.2rem !important;
+
+    font-weight: 700 !important;
+}
+
+/* =========================================================
+   NAVIGATION BUTTONS
+   ========================================================= */
+
+.navigationButton {
+    margin-right: 10px;
+
+    margin-bottom: 10px;
+}
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+.dashboardToolbar {
+    background: transparent !important;
+
+    border: none !important;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .heroSection {
+        padding: 28px 24px;
+    }
+
+    .heroTitle {
+        font-size: 1.8rem !important;
+    }
+
+    .dashboardSection {
+        padding: 0 18px 20px 18px;
+    }
+
+    .kpiTile {
+        flex: 1 1 45%;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .heroSection {
+        padding: 24px 18px;
+    }
+
+    .heroTitle {
+        font-size: 1.5rem !important;
+    }
+
+    .heroSubtitle {
+        font-size: 0.95rem !important;
+    }
+
+    .dashboardSection {
+        padding: 0 12px 16px 12px;
+    }
+
+    .kpiTile {
+        flex: 1 1 100%;
+    }
+
+    .aiSection {
+        margin: 12px;
+    }
+}

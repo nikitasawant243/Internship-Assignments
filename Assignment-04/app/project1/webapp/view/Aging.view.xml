@@ -1,0 +1,450 @@
+<mvc:View
+    controllerName="pr.tracker.project1.controller.Aging"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:table="sap.ui.table">
+
+    <Page
+        id="agingPage"
+        title="PR Aging & Bottleneck Analysis"
+        showNavButton="true"
+        navButtonPress=".onNavBack">
+
+        <content>
+
+            <!-- KPI Section -->
+            <HBox
+                id="kpiContainer"
+                width="100%"
+                justifyContent="SpaceAround"
+                wrap="Wrap"
+                class="sapUiSmallMargin">
+
+                <GenericTile
+                    id="totalPRTile"
+                    header="Total PRs"
+                    subheader="All Purchase Requisitions"
+                    class="sapUiTinyMargin">
+
+                    <TileContent>
+                        <NumericContent
+                            value="{view>/totalPRs}"
+                            icon="sap-icon://document-text"
+                            valueColor="Neutral"/>
+                    </TileContent>
+
+                </GenericTile>
+
+                <GenericTile
+                    id="pendingPRTile"
+                    header="Pending"
+                    subheader="Awaiting Approval"
+                    class="sapUiTinyMargin">
+
+                    <TileContent>
+                        <NumericContent
+                            value="{view>/pendingPRs}"
+                            icon="sap-icon://pending"
+                            valueColor="Critical"/>
+                    </TileContent>
+
+                </GenericTile>
+
+                <GenericTile
+                    id="delayedPRTile"
+                    header="Delayed"
+                    subheader="Beyond SLA"
+                    class="sapUiTinyMargin">
+
+                    <TileContent>
+                        <NumericContent
+                            value="{view>/delayedPRs}"
+                            icon="sap-icon://alert"
+                            valueColor="Error"/>
+                    </TileContent>
+
+                </GenericTile>
+
+                <GenericTile
+                    id="highRiskTile"
+                    header="High Risk"
+                    subheader="AI Prediction"
+                    class="sapUiTinyMargin">
+
+                    <TileContent>
+                        <NumericContent
+                            value="{view>/highRiskPRs}"
+                            icon="sap-icon://warning"
+                            valueColor="Error"/>
+                    </TileContent>
+
+                </GenericTile>
+
+            </HBox>
+
+            <!-- Filter Bar -->
+            <Panel
+                id="filterPanel"
+                headerText="Filters"
+                expandable="true"
+                expanded="true"
+                class="sapUiSmallMargin">
+
+                <content>
+
+                    <HBox
+                        id="filterContainer"
+                        width="100%"
+                        wrap="Wrap"
+                        alignItems="Center">
+
+                        <VBox
+                            id="statusFilterBox"
+                            class="sapUiSmallMarginEnd">
+
+                            <Label
+                                text="Status"
+                                labelFor="statusFilter"/>
+
+                            <Select
+                                id="statusFilter"
+                                selectedKey="{view>/statusFilter}"
+                                change=".onFilterChange"
+                                width="180px">
+
+                                <items>
+
+                                    <core:Item
+                                        key=""
+                                        text="All"/>
+
+                                    <core:Item
+                                        key="Pending"
+                                        text="Pending"/>
+
+                                    <core:Item
+                                        key="Approved"
+                                        text="Approved"/>
+
+                                    <core:Item
+                                        key="Rejected"
+                                        text="Rejected"/>
+
+                                </items>
+
+                            </Select>
+
+                        </VBox>
+
+                        <VBox
+                            id="departmentFilterBox"
+                            class="sapUiSmallMarginEnd">
+
+                            <Label
+                                text="Department"
+                                labelFor="departmentFilter"/>
+
+                            <Input
+                                id="departmentFilter"
+                                value="{view>/departmentFilter}"
+                                placeholder="Enter department"
+                                liveChange=".onFilterChange"
+                                width="180px"/>
+
+                        </VBox>
+
+                        <VBox
+                            id="agingFilterBox"
+                            class="sapUiSmallMarginEnd">
+
+                            <Label
+                                text="Minimum Aging (Days)"
+                                labelFor="agingFilter"/>
+
+                            <Input
+                                id="agingFilter"
+                                type="Number"
+                                value="{view>/minAging}"
+                                placeholder="0"
+                                liveChange=".onFilterChange"
+                                width="160px"/>
+
+                        </VBox>
+
+                        <Button
+                            id="clearFilterButton"
+                            text="Clear Filters"
+                            icon="sap-icon://clear-filter"
+                            type="Transparent"
+                            press=".onClearFilters"
+                            class="sapUiSmallMarginTop"/>
+
+                    </HBox>
+
+                </content>
+
+            </Panel>
+
+            <!-- Action Toolbar -->
+            <Toolbar
+                id="actionToolbar"
+                class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+
+                <Title
+                    id="tableTitle"
+                    text="Purchase Requisitions"
+                    level="H2"/>
+
+                <ToolbarSpacer/>
+
+                <Button
+                    id="refreshButton"
+                    text="Refresh"
+                    icon="sap-icon://refresh"
+                    type="Transparent"
+                    press=".onRefresh"/>
+
+                <Button
+                    id="exportButton"
+                    text="Export"
+                    icon="sap-icon://excel-attachment"
+                    type="Transparent"
+                    press=".onExport"/>
+
+            </Toolbar>
+
+            <!-- PR Table -->
+            <Table
+                id="prTable"
+                items="{
+                    path: '/PurchaseRequisition',
+                    parameters: {
+                        $$operationMode: 'Server'
+                    }
+                }"
+                growing="true"
+                growingThreshold="20"
+                growingScrollToLoad="true"
+                mode="SingleSelectMaster"
+                selectionChange=".onSelectionChange"
+                class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+
+                <headerToolbar>
+                    <Toolbar>
+                        <Text
+                            text="Purchase Requisition Aging Report"/>
+                    </Toolbar>
+                </headerToolbar>
+
+                <columns>
+
+                    <Column>
+                        <Text text="PR Number"/>
+                    </Column>
+
+                    <Column>
+                        <Text text="Description"/>
+                    </Column>
+
+                    <Column>
+                        <Text text="Department"/>
+                    </Column>
+
+                    <Column>
+                        <Text text="Requester"/>
+                    </Column>
+
+                    <Column>
+                        <Text text="Status"/>
+                    </Column>
+
+                    <Column
+                        hAlign="End">
+                        <Text text="Estimated Cost"/>
+                    </Column>
+
+                    <Column
+                        hAlign="Center">
+                        <Text text="Priority"/>
+                    </Column>
+
+                    <Column
+                        hAlign="Center">
+                        <Text text="Aging (Days)"/>
+                    </Column>
+
+                    <Column>
+                        <Text text="Created On"/>
+                    </Column>
+
+                    <Column
+                        hAlign="Center">
+                        <Text text="Actions"/>
+                    </Column>
+
+                </columns>
+
+                <items>
+
+                    <ColumnListItem
+                        type="Active"
+                        press=".onPRPress">
+
+                        <cells>
+
+                            <!-- PR Number -->
+                            <ObjectIdentifier
+                                title="{PRNumber}"
+                                text="Purchase Requisition"/>
+
+                            <!-- Description -->
+                            <Text
+                                text="{Description}"
+                                wrapping="false"/>
+
+                            <!-- Department -->
+                            <Text
+                                text="{Department}"/>
+
+                            <!-- Requester -->
+                            <Text
+                                text="{Requester}"/>
+
+                            <!-- Status -->
+                            <ObjectStatus
+                                text="{Status}"
+                                state="{
+                                    path: 'Status',
+                                    formatter: '.formatter.statusState'
+                                }"/>
+
+                            <!-- Estimated Cost -->
+                            <ObjectNumber
+                                number="{EstimatedCost}"
+                                unit="{Currency}"/>
+
+                            <!-- Priority -->
+                            <ObjectStatus
+                                text="{Priority}"
+                                state="{
+                                    path: 'Priority',
+                                    formatter: '.formatter.priorityState'
+                                }"/>
+
+                            <!-- Aging -->
+                            <ObjectNumber
+                                number="{PRAging}"
+                                unit="Days"
+                                state="{
+                                    path: 'PRAging',
+                                    formatter: '.formatter.agingState'
+                                }"/>
+
+                            <!-- Created Date -->
+                            <Text
+                                text="{
+                                    path: 'CreatedAt',
+                                    type: 'sap.ui.model.type.DateTime',
+                                    formatOptions: {
+                                        style: 'medium'
+                                    }
+                                }"/>
+
+                            <!-- Actions -->
+                            <HBox
+                                justifyContent="Center">
+
+                                <!-- Approve -->
+                                <Button
+                                    icon="sap-icon://accept"
+                                    tooltip="Approve PR"
+                                    type="Transparent"
+                                    press=".onApprove"
+                                    enabled="{= ${Status} === 'Pending' }"
+                                    class="sapUiTinyMarginEnd"/>
+
+                                <!-- Reject -->
+                                <Button
+                                    icon="sap-icon://decline"
+                                    tooltip="Reject PR"
+                                    type="Transparent"
+                                    press=".onReject"
+                                    enabled="{= ${Status} === 'Pending' }"
+                                    class="sapUiTinyMarginEnd"/>
+
+                                <!-- Urgent -->
+                                <Button
+                                    icon="sap-icon://flag"
+                                    tooltip="Mark as Urgent"
+                                    type="Transparent"
+                                    press=".onMarkUrgent"
+                                    enabled="{= ${Status} === 'Pending' }"/>
+
+                            </HBox>
+
+                        </cells>
+
+                    </ColumnListItem>
+
+                </items>
+
+            </Table>
+
+            <!-- Empty State -->
+            <VBox
+                id="emptyState"
+                visible="{= ${view>/noData} === true }"
+                alignItems="Center"
+                justifyContent="Center"
+                class="sapUiLargeMargin">
+
+                <core:Icon
+                    src="sap-icon://document"
+                    size="3rem"
+                    class="sapUiSmallMarginBottom"/>
+
+                <Title
+                    text="No Purchase Requisitions Found"
+                    level="H3"/>
+
+                <Text
+                    text="Try changing your filters."
+                    class="sapUiSmallMarginTop"/>
+
+            </VBox>
+
+        </content>
+
+        <footer>
+
+            <Toolbar>
+
+                <Text
+                    text="{view>/selectedText}"/>
+
+                <ToolbarSpacer/>
+
+                <Button
+                    id="approveSelectedButton"
+                    text="Approve Selected"
+                    icon="sap-icon://accept"
+                    type="Emphasized"
+                    press=".onApproveSelected"
+                    enabled="{= ${view>/hasSelection} === true }"/>
+
+                <Button
+                    id="rejectSelectedButton"
+                    text="Reject Selected"
+                    icon="sap-icon://decline"
+                    type="Reject"
+                    press=".onRejectSelected"
+                    enabled="{= ${view>/hasSelection} === true }"/>
+
+            </Toolbar>
+
+        </footer>
+
+    </Page>
+
+</mvc:View>

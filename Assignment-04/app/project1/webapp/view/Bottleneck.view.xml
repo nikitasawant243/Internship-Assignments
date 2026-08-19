@@ -1,0 +1,541 @@
+<mvc:View
+    controllerName="pr.tracker.project1.controller.Bottleneck"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page
+        id="bottleneckPage"
+        title="{i18n>departmentBottlenecks}"
+        class="prTrackerPage">
+
+        <!-- ===================================================== -->
+        <!-- HEADER                                               -->
+        <!-- ===================================================== -->
+
+        <headerContent>
+
+            <Button
+                icon="sap-icon://refresh"
+                tooltip="{i18n>refresh}"
+                type="Transparent"
+                press=".onRefresh"/>
+
+        </headerContent>
+
+
+        <content>
+
+            <VBox
+                width="100%"
+                class="sapUiResponsiveContentPadding">
+
+
+                <!-- ================================================= -->
+                <!-- PAGE HEADER                                       -->
+                <!-- ================================================= -->
+
+                <VBox
+                    class="pageHeader">
+
+                    <Title
+                        text="{i18n>departmentBottlenecks}"
+                        level="H1"
+                        class="pageTitle"/>
+
+                    <Text
+                        text="{i18n>bottleneckPageDescription}"
+                        class="pageSubtitle"/>
+
+                </VBox>
+
+
+                <!-- ================================================= -->
+                <!-- SUMMARY CARDS                                    -->
+                <!-- ================================================= -->
+
+                <HBox
+                    id="bottleneckSummary"
+                    width="100%"
+                    wrap="Wrap"
+                    class="summaryContainer">
+
+
+                    <!-- TOTAL DEPARTMENTS -->
+
+                    <VBox
+                        class="summaryCard">
+
+                        <ObjectNumber
+                            number="{bottleneck>/totalDepartments}"
+                            state="Information"
+                            class="summaryNumber"/>
+
+                        <Text
+                            text="{i18n>departments}"
+                            class="summaryLabel"/>
+
+                        <ObjectStatus
+                            text="{i18n>departmentsAnalyzed}"
+                            state="Information"
+                            icon="sap-icon://group"/>
+
+                    </VBox>
+
+
+                    <!-- BOTTLENECK DEPARTMENTS -->
+
+                    <VBox
+                        class="summaryCard">
+
+                        <ObjectNumber
+                            number="{bottleneck>/bottleneckDepartments}"
+                            state="Error"
+                            class="summaryNumber"/>
+
+                        <Text
+                            text="{i18n>bottleneckDepartments}"
+                            class="summaryLabel"/>
+
+                        <ObjectStatus
+                            text="{i18n>requiresAttention}"
+                            state="Error"
+                            icon="sap-icon://alert"/>
+
+                    </VBox>
+
+
+                    <!-- HIGH RISK DEPARTMENTS -->
+
+                    <VBox
+                        class="summaryCard">
+
+                        <ObjectNumber
+                            number="{bottleneck>/highRiskDepartments}"
+                            state="Warning"
+                            class="summaryNumber"/>
+
+                        <Text
+                            text="{i18n>highRiskDepartments}"
+                            class="summaryLabel"/>
+
+                        <ObjectStatus
+                            text="{i18n>riskDetected}"
+                            state="Warning"
+                            icon="sap-icon://warning"/>
+
+                    </VBox>
+
+
+                    <!-- TOTAL DELAYED PRs -->
+
+                    <VBox
+                        class="summaryCard">
+
+                        <ObjectNumber
+                            number="{bottleneck>/totalDelayedPRs}"
+                            state="Error"
+                            class="summaryNumber"/>
+
+                        <Text
+                            text="{i18n>delayedPRs}"
+                            class="summaryLabel"/>
+
+                        <ObjectStatus
+                            text="{i18n>delayedAcrossDepartments}"
+                            state="Error"
+                            icon="sap-icon://lateness"/>
+
+                    </VBox>
+
+                </HBox>
+
+
+                <!-- ================================================= -->
+                <!-- TOOLBAR                                           -->
+                <!-- ================================================= -->
+
+                <Toolbar
+                    class="tableToolbar">
+
+
+                    <!-- SEARCH -->
+
+                    <SearchField
+                        id="bottleneckSearch"
+                        width="20rem"
+                        placeholder="{i18n>searchDepartment}"
+                        search=".onSearch"
+                        liveChange=".onSearch"/>
+
+
+                    <ToolbarSeparator/>
+
+
+                    <!-- BOTTLENECK FILTER -->
+
+                    <Label
+                        text="{i18n>bottleneckLevel}"
+                        labelFor="bottleneckFilter"
+                        class="sapUiTinyMarginEnd"/>
+
+
+                    <Select
+                        id="bottleneckFilter"
+                        selectedKey="ALL"
+                        width="11rem"
+                        change=".onFilter">
+
+                        <items>
+
+                            <core:Item
+                                key="ALL"
+                                text="{i18n>allLevels}"/>
+
+                            <core:Item
+                                key="HIGH"
+                                text="{i18n>high}"/>
+
+                            <core:Item
+                                key="MEDIUM"
+                                text="{i18n>medium}"/>
+
+                            <core:Item
+                                key="LOW"
+                                text="{i18n>low}"/>
+
+                        </items>
+
+                    </Select>
+
+
+                    <ToolbarSpacer/>
+
+
+                    <!-- SORT DELAY -->
+
+                    <Button
+                        icon="sap-icon://sort"
+                        text="{i18n>sortByDelayed}"
+                        tooltip="{i18n>sortByDelayed}"
+                        press=".onSort"/>
+
+
+                    <!-- SORT RISK -->
+
+                    <Button
+                        icon="sap-icon://warning"
+                        text="{i18n>sortByRisk}"
+                        tooltip="{i18n>sortByRisk}"
+                        press=".onSortRisk"/>
+
+
+                    <!-- REFRESH -->
+
+                    <Button
+                        icon="sap-icon://refresh"
+                        text="{i18n>refresh}"
+                        type="Transparent"
+                        press=".onRefresh"/>
+
+                </Toolbar>
+
+
+                <!-- ================================================= -->
+                <!-- DEPARTMENT TABLE                                 -->
+                <!-- ================================================= -->
+
+                <Table
+                    id="bottleneckTable"
+                    inset="false"
+                    growing="true"
+                    growingThreshold="20"
+                    mode="SingleSelectMaster"
+                    selectionChange=".onRowPress"
+                    items="{
+                        path: 'bottleneck>/filteredDepartments'
+                    }"
+                    class="prTable">
+
+
+                    <!-- ================================================= -->
+                    <!-- TABLE HEADER                                      -->
+                    <!-- ================================================= -->
+
+                    <headerToolbar>
+
+                        <Toolbar>
+
+                            <Title
+                                text="{i18n>departmentAnalysis}"
+                                level="H2"/>
+
+                            <ToolbarSpacer/>
+
+                            <ObjectStatus
+                                text="{i18n>bottleneckAnalysis}"
+                                state="Information"
+                                icon="sap-icon://business-objects-experience"/>
+
+                        </Toolbar>
+
+                    </headerToolbar>
+
+
+                    <!-- ================================================= -->
+                    <!-- COLUMNS                                           -->
+                    <!-- ================================================= -->
+
+                    <columns>
+
+
+                        <!-- DEPARTMENT -->
+
+                        <Column
+                            width="14rem">
+
+                            <Text
+                                text="{i18n>department}"/>
+
+                        </Column>
+
+
+                        <!-- TOTAL PRs -->
+
+                        <Column
+                            width="8rem"
+                            hAlign="Center">
+
+                            <Text
+                                text="{i18n>totalPRs}"/>
+
+                        </Column>
+
+
+                        <!-- PENDING -->
+
+                        <Column
+                            width="8rem"
+                            hAlign="Center">
+
+                            <Text
+                                text="{i18n>pendingPRs}"/>
+
+                        </Column>
+
+
+                        <!-- DELAYED -->
+
+                        <Column
+                            width="9rem"
+                            hAlign="Center">
+
+                            <Text
+                                text="{i18n>delayedPRs}"/>
+
+                        </Column>
+
+
+                        <!-- HIGH RISK -->
+
+                        <Column
+                            width="10rem"
+                            hAlign="Center">
+
+                            <Text
+                                text="{i18n>highRiskPRs}"/>
+
+                        </Column>
+
+
+                        <!-- TOTAL COST -->
+
+                        <Column
+                            width="11rem"
+                            hAlign="End">
+
+                            <Text
+                                text="{i18n>totalCost}"/>
+
+                        </Column>
+
+
+                        <!-- BOTTLENECK -->
+
+                        <Column
+                            width="12rem">
+
+                            <Text
+                                text="{i18n>bottleneckLevel}"/>
+
+                        </Column>
+
+
+                        <!-- ACTION -->
+
+                        <Column
+                            width="8rem"
+                            hAlign="Center">
+
+                            <Text
+                                text="{i18n>details}"/>
+
+                        </Column>
+
+                    </columns>
+
+
+                    <!-- ================================================= -->
+                    <!-- ROWS                                              -->
+                    <!-- ================================================= -->
+
+                    <items>
+
+                        <ColumnListItem
+                            type="Active"
+                            press=".onRowPress">
+
+                            <cells>
+
+
+                                <!-- ===================================== -->
+                                <!-- DEPARTMENT                             -->
+                                <!-- ===================================== -->
+
+                                <ObjectIdentifier
+                                    title="{bottleneck>Department}"
+                                    text="{i18n>departmentAnalysis}"/>
+
+
+                                <!-- ===================================== -->
+                                <!-- TOTAL PRs                              -->
+                                <!-- ===================================== -->
+
+                                <ObjectNumber
+                                    number="{bottleneck>TotalPRs}"
+                                    state="Information"/>
+
+
+                                <!-- ===================================== -->
+                                <!-- PENDING                                -->
+                                <!-- ===================================== -->
+
+                                <ObjectNumber
+                                    number="{bottleneck>PendingPRs}"
+                                    state="Warning"/>
+
+
+                                <!-- ===================================== -->
+                                <!-- DELAYED                                -->
+                                <!-- ===================================== -->
+
+                                <ObjectNumber
+                                    number="{bottleneck>DelayedPRs}"
+                                    state="{
+                                        path: 'bottleneck>DelayedPRs',
+                                        formatter: '.formatter.delayState'
+                                    }"/>
+
+
+                                <!-- ===================================== -->
+                                <!-- HIGH RISK                              -->
+                                <!-- ===================================== -->
+
+                                <ObjectNumber
+                                    number="{bottleneck>HighRiskPRs}"
+                                    state="{
+                                        path: 'bottleneck>HighRiskPRs',
+                                        formatter: '.formatter.riskScoreState'
+                                    }"/>
+
+
+                                <!-- ===================================== -->
+                                <!-- TOTAL COST                             -->
+                                <!-- ===================================== -->
+
+                                <ObjectNumber
+                                    number="{
+                                        path: 'bottleneck>TotalCost',
+                                        formatter: '.formatter.formatCurrency'
+                                    }"
+                                    unit="INR"/>
+
+
+                                <!-- ===================================== -->
+                                <!-- BOTTLENECK LEVEL                       -->
+                                <!-- ===================================== -->
+
+                                <ObjectStatus
+                                    text="{bottleneck>BottleneckLevel}"
+                                    state="{
+                                        parts: [
+                                            {
+                                                path: 'bottleneck>DelayedPRs'
+                                            },
+                                            {
+                                                path: 'bottleneck>HighRiskPRs'
+                                            }
+                                        ],
+                                        formatter: '.formatter.bottleneckState'
+                                    }"
+                                    icon="sap-icon://alert"/>
+
+
+                                <!-- ===================================== -->
+                                <!-- DETAILS                                -->
+                                <!-- ===================================== -->
+
+                                <Button
+                                    icon="sap-icon://display"
+                                    tooltip="{i18n>viewDetails}"
+                                    type="Transparent"
+                                    press=".onRowPress"/>
+
+                            </cells>
+
+                        </ColumnListItem>
+
+                    </items>
+
+                </Table>
+
+
+                <!-- ================================================= -->
+                <!-- BOTTLENECK EXPLANATION                           -->
+                <!-- ================================================= -->
+
+                <VBox
+                    class="dashboardSection bottleneckExplanation">
+
+                    <HBox>
+
+                        <core:Icon
+                            src="sap-icon://lightbulb"
+                            size="1.5rem"
+                            class="aiIcon"/>
+
+                        <VBox
+                            class="sapUiSmallMarginBegin">
+
+                            <Title
+                                text="{i18n>howBottleneckIsCalculated}"
+                                level="H3"/>
+
+                            <Text
+                                text="{i18n>bottleneckCalculationDescription}"
+                                wrapping="true"/>
+
+                        </VBox>
+
+                    </HBox>
+
+                </VBox>
+
+            </VBox>
+
+        </content>
+
+    </Page>
+
+</mvc:View>

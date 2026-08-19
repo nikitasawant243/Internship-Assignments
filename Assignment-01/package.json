@@ -1,0 +1,40 @@
+{
+  "name": "Assignment01",
+  "version": "1.0.0",
+  "dependencies": {
+    "@cap-js/hana": "^2",
+    "@sap/cds": "^9"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^2.4"
+  },
+  "scripts": {
+    "start": "cds-serve"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "url": "db.sqlite"
+        }
+      },
+      "auth": {
+        "kind": "mocked",
+        "users": {
+          "nikitasawant243@gmail.com": {
+            "roles": [
+              "admin"
+            ]
+          }
+        }
+      },
+      "[production]": {
+        "db": {
+          "kind": "hana"
+        }
+      }
+    }
+  },
+  "private": true
+}

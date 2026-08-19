@@ -1,0 +1,170 @@
+{
+    "_version": "1.65.0",
+
+    "sap.app": {
+        "id": "pr.tracker.project1",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "dataSources": {
+            "mainService": {
+                "uri": "/odata/v4/procurement/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0"
+                }
+            }
+        }
+    },
+
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+
+    "sap.ui5": {
+
+        "rootView": {
+            "viewName": "pr.tracker.project1.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "app"
+        },
+
+        "dependencies": {
+            "minUI5Version": "1.120.0",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ui.layout": {},
+                "sap.ui.table": {}
+            }
+        },
+
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+
+        "models": {
+
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "pr.tracker.project1.i18n.i18n"
+                }
+            },
+
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+
+            "app": {
+                "type": "sap.ui.model.json.JSONModel",
+                "settings": {}
+            }
+        },
+
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+
+        "routing": {
+
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "viewPath": "pr.tracker.project1.view",
+                "controlId": "app",
+                "controlAggregation": "pages",
+                "async": true
+            },
+
+            "routes": [
+
+                {
+                    "pattern": "",
+                    "name": "Home",
+                    "target": "Home"
+                },
+
+                {
+                    "pattern": "home",
+                    "name": "HomeRoute",
+                    "target": "Home"
+                },
+
+                {
+                    "pattern": "aging",
+                    "name": "Aging",
+                    "target": "Aging"
+                },
+
+                {
+                    "pattern": "delayed",
+                    "name": "Delayed",
+                    "target": "Delayed"
+                },
+
+                {
+                    "pattern": "bottleneck",
+                    "name": "Bottleneck",
+                    "target": "Bottleneck"
+                }
+            ],
+
+            "targets": {
+
+                "Home": {
+                    "viewName": "Home",
+                    "viewId": "home",
+                    "viewLevel": 1
+                },
+
+                "Aging": {
+                    "viewName": "Aging",
+                    "viewId": "aging",
+                    "viewLevel": 2
+                },
+
+                "Delayed": {
+                    "viewName": "Delayed",
+                    "viewId": "delayed",
+                    "viewLevel": 2
+                },
+
+                "Bottleneck": {
+                    "viewName": "Bottleneck",
+                    "viewId": "bottleneck",
+                    "viewLevel": 2
+                }
+            }
+        }
+    }
+}

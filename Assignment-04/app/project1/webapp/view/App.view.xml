@@ -1,0 +1,19 @@
+<mvc:View
+    controllerName="pr.tracker.project1.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true">
+
+    <App
+        id="app"
+        busy="{app>/busy}">
+
+        <!--
+            The router will place Home.view.xml,
+            Aging.view.xml, Delayed.view.xml and
+            Bottleneck.view.xml inside this App.
+        -->
+
+    </App>
+
+</mvc:View>

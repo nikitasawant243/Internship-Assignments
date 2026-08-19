@@ -1,0 +1,17 @@
+{
+  "name": "pr-tracker-project1",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SAPUI5 frontend for PR Bottleneck Tracker",
+
+  "scripts": {
+    "start": "ui5 serve --open index.html",
+    "build": "ui5 build --all",
+    "lint": "eslint ."
+  },
+
+  "devDependencies": {
+    "@ui5/cli": "^4.0.0",
+    "eslint": "^9.0.0"
+  }
+}

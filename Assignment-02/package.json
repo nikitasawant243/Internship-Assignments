@@ -1,0 +1,40 @@
+{
+  "name": "Assignment02",
+  "version": "1.0.0",
+  "description": "SAP CAP Cost Center Management Application with SAP Fiori Elements",
+  "private": true,
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/project1"
+  ],
+  "dependencies": {
+    "@sap/cds": "^9",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^2.4",
+    "@sap/cds-dk": "^9",
+    "cds-plugin-ui5": "^0.17.0"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds watch",
+    "watch-project1": "cds watch --open costcenter.project1/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "build": "cds build --production"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": ":memory:"
+        }
+      }
+    },
+    "features": {
+      "fiori_preview": true
+    }
+  }
+}

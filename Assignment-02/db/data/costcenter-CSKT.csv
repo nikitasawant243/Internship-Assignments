@@ -1,0 +1,41 @@
+KOKRS,KOSTL,SPRAS,DATAB,DATBI,KTEXT,LTEXT,MCTXT,LOGSYS,MANDT
+1000,CC001,EN,2020-01-01,9999-12-31,IT Department,Information Technology Department,IT,SYS001,100
+1000,CC001,DE,2020-01-01,9999-12-31,IT Abteilung,Informationstechnologie Abteilung,IT,SYS001,100
+1000,CC002,EN,2020-01-01,9999-12-31,HR Department,Human Resources Department,HR,SYS001,100
+1000,CC002,DE,2020-01-01,9999-12-31,Personalabteilung,Personalwesen Abteilung,HR,SYS001,100
+1000,CC003,EN,2021-01-01,9999-12-31,Finance Dept,Finance and Accounting Department,FIN,SYS001,100
+1000,CC003,DE,2021-01-01,9999-12-31,Finanzabteilung,Finanz und Buchhaltung Abteilung,FIN,SYS001,100
+1000,CC004,EN,2021-01-01,9999-12-31,Marketing,Marketing and Communications,MKT,SYS001,100
+1000,CC004,DE,2021-01-01,9999-12-31,Marketing,Marketing und Kommunikation,MKT,SYS001,100
+1000,CC005,EN,2021-06-01,9999-12-31,Sales Europe,European Sales Division,SALE,SYS002,200
+1000,CC005,DE,2021-06-01,9999-12-31,Vertrieb Europa,Europaeische Vertriebsabteilung,VTRB,SYS002,200
+1000,CC006,EN,2021-06-01,9999-12-31,Procurement,Procurement and Supply Chain,PROC,SYS002,200
+1000,CC006,DE,2021-06-01,9999-12-31,Beschaffung,Beschaffung und Lieferkette,BSCH,SYS002,200
+1000,CC007,EN,2022-01-01,9999-12-31,R&D Center,Research and Development Center,R&D,SYS002,200
+1000,CC007,DE,2022-01-01,9999-12-31,Forschung Entw,Forschung und Entwicklung,FE,SYS002,200
+1000,CC008,EN,2022-01-01,9999-12-31,Legal Dept,Legal and Compliance Department,LEG,SYS002,200
+1000,CC008,DE,2022-01-01,9999-12-31,Rechtsabteilung,Rechts und Compliance Abteilung,REC,SYS002,200
+1000,CC009,EN,2022-03-01,9999-12-31,Operations UK,United Kingdom Operations,OPS,SYS003,300
+1000,CC009,DE,2022-03-01,9999-12-31,Operations UK,Vereinigtes Koenigreich Operations,OPS,SYS003,300
+1000,CC010,EN,2022-03-01,9999-12-31,Customer Svc,Customer Service and Support,CS,SYS003,300
+1000,CC010,DE,2022-03-01,9999-12-31,Kundendienst,Kundendienst und Unterstuetzung,KD,SYS003,300
+2000,CC011,EN,2020-01-01,9999-12-31,Italy Admin,Italy Administration Center,ITA,SYS004,400
+2000,CC011,DE,2020-01-01,9999-12-31,Italien Admin,Italien Verwaltungszentrum,ITA,SYS004,400
+2000,CC012,EN,2020-01-01,9999-12-31,Italy Sales,Italy Sales and Distribution,ITAS,SYS004,400
+2000,CC012,DE,2020-01-01,9999-12-31,Italien Vertrieb,Italien Vertrieb und Distribution,ITVT,SYS004,400
+2000,CC013,EN,2021-01-01,9999-12-31,Italy Finance,Italy Finance Department,ITFIN,SYS004,400
+2000,CC013,DE,2021-01-01,9999-12-31,Italien Finanzen,Italien Finanzabteilung,ITFIN,SYS004,400
+2000,CC014,EN,2021-01-01,9999-12-31,Italy IT,Italy Information Technology,ITIT,SYS004,400
+2000,CC014,DE,2021-01-01,9999-12-31,Italien IT,Italien Informationstechnologie,ITIT,SYS004,400
+2000,CC015,EN,2022-01-01,9999-12-31,Switzerland Ops,Switzerland Operations Center,CHO,SYS005,500
+2000,CC015,DE,2022-01-01,9999-12-31,Schweiz Ops,Schweiz Operations Zentrum,CHO,SYS005,500
+2000,CC016,EN,2022-01-01,9999-12-31,Switzerland R&D,Switzerland Research Center,CHRD,SYS005,500
+2000,CC016,DE,2022-01-01,9999-12-31,Schweiz Forschung,Schweiz Forschungszentrum,CHFO,SYS005,500
+2000,CC017,EN,2023-01-01,9999-12-31,Spain Sales,Spain and Portugal Sales,ESPT,SYS005,500
+2000,CC017,DE,2023-01-01,9999-12-31,Spanien Vertrieb,Spanien und Portugal Vertrieb,SPVT,SYS005,500
+2000,CC018,EN,2023-01-01,9999-12-31,Spain Admin,Spain Administration,ESAD,SYS005,500
+2000,CC018,DE,2023-01-01,9999-12-31,Spanien Admin,Spanien Verwaltung,SPVW,SYS005,500
+2000,CC019,EN,2023-06-01,9999-12-31,Japan HQ,Japan Headquarters,JPHQ,SYS006,600
+2000,CC019,DE,2023-06-01,9999-12-31,Japan HQ,Japan Hauptquartier,JPHQ,SYS006,600
+2000,CC020,EN,2023-06-01,9999-12-31,Japan R&D,Japan Research and Development,JPRD,SYS006,600
+2000,CC020,DE,2023-06-01,9999-12-31,Japan Forschung,Japan Forschung und Entwicklung,JPFE,SYS006,600

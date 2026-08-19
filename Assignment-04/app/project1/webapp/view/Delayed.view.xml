@@ -1,0 +1,577 @@
+<mvc:View
+    controllerName="pr.tracker.project1.controller.Delayed"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page
+        id="delayedPage"
+        title="{i18n>delayedApprovals}"
+        class="prTrackerPage">
+
+        <!-- ===================================================== -->
+        <!-- HEADER                                               -->
+        <!-- ===================================================== -->
+
+        <headerContent>
+
+            <Button
+                icon="sap-icon://refresh"
+                tooltip="{i18n>refresh}"
+                type="Transparent"
+                press=".onRefresh"/>
+
+        </headerContent>
+
+
+        <content>
+
+            <VBox
+                width="100%"
+                class="sapUiResponsiveContentPadding">
+
+
+                <!-- ================================================= -->
+                <!-- PAGE HEADER                                       -->
+                <!-- ================================================= -->
+
+                <VBox
+                    class="pageHeader">
+
+                    <Title
+                        text="{i18n>delayedApprovals}"
+                        level="H1"
+                        class="pageTitle"/>
+
+                    <Text
+                        text="{i18n>delayedPageDescription}"
+                        class="pageSubtitle"/>
+
+                </VBox>
+
+
+                <!-- ================================================= -->
+                <!-- SUMMARY                                           -->
+                <!-- ================================================= -->
+
+                <HBox
+                    class="delayedSummary"
+                    width="100%"
+                    wrap="Wrap">
+
+
+                    <VBox
+                        class="summaryCard">
+
+                        <ObjectNumber
+                            id="delayedCount"
+                            number="{= ${/PurchaseRequisition}.length }"
+                            state="Error"/>
+
+                        <Text
+                            text="{i18n>delayedPRs}"
+                            class="summaryLabel"/>
+
+                    </VBox>
+
+
+                    <VBox
+                        class="summaryCard">
+
+                        <ObjectStatus
+                            text="{i18n>highDelay}"
+                            state="Error"
+                            icon="sap-icon://alert"/>
+
+                        <Text
+                            text="{i18n>requiresImmediateAttention}"
+                            class="summaryLabel"/>
+
+                    </VBox>
+
+
+                    <VBox
+                        class="summaryCard">
+
+                        <ObjectStatus
+                            text="{i18n>slaMonitoring}"
+                            state="Warning"
+                            icon="sap-icon://lateness"/>
+
+                        <Text
+                            text="{i18n>monitorDelayedApprovals}"
+                            class="summaryLabel"/>
+
+                    </VBox>
+
+                </HBox>
+
+
+                <!-- ================================================= -->
+                <!-- TOOLBAR                                           -->
+                <!-- ================================================= -->
+
+                <Toolbar
+                    class="tableToolbar">
+
+
+                    <!-- SEARCH -->
+
+                    <SearchField
+                        id="delayedSearchField"
+                        width="20rem"
+                        placeholder="{i18n>searchPRs}"
+                        search=".onSearch"
+                        liveChange=".onSearch"/>
+
+
+                    <ToolbarSeparator/>
+
+
+                    <!-- RISK FILTER -->
+
+                    <Label
+                        text="{i18n>risk}"
+                        labelFor="riskFilter"
+                        class="sapUiTinyMarginEnd"/>
+
+
+                    <Select
+                        id="riskFilter"
+                        selectedKey="ALL"
+                        width="10rem"
+                        change=".onFilterRisk">
+
+                        <items>
+
+                            <core:Item
+                                key="ALL"
+                                text="{i18n>allRisks}"/>
+
+                            <core:Item
+                                key="HIGH"
+                                text="{i18n>highRisk}"/>
+
+                            <core:Item
+                                key="MEDIUM"
+                                text="{i18n>mediumRisk}"/>
+
+                            <core:Item
+                                key="LOW"
+                                text="{i18n>lowRisk}"/>
+
+                        </items>
+
+                    </Select>
+
+
+                    <ToolbarSpacer/>
+
+
+                    <!-- SORT DELAY -->
+
+                    <Button
+                        icon="sap-icon://sort"
+                        text="{i18n>sortByDelay}"
+                        tooltip="{i18n>sortByDelay}"
+                        press=".onSort"/>
+
+
+                    <!-- SORT APPROVAL CYCLE -->
+
+                    <Button
+                        icon="sap-icon://history"
+                        text="{i18n>sortByApprovalCycle}"
+                        tooltip="{i18n>sortByApprovalCycle}"
+                        press=".onSortApprovalCycle"/>
+
+
+                    <!-- REFRESH -->
+
+                    <Button
+                        icon="sap-icon://refresh"
+                        text="{i18n>refresh}"
+                        type="Transparent"
+                        press=".onRefresh"/>
+
+                </Toolbar>
+
+
+                <!-- ================================================= -->
+                <!-- TABLE                                             -->
+                <!-- ================================================= -->
+
+                <Table
+                    id="delayedTable"
+                    inset="false"
+                    growing="true"
+                    growingThreshold="20"
+                    growingScrollToLoad="true"
+                    mode="SingleSelectMaster"
+                    selectionChange=".onRowPress"
+                    class="prTable">
+
+
+                    <!-- ================================================= -->
+                    <!-- TABLE HEADER                                      -->
+                    <!-- ================================================= -->
+
+                    <headerToolbar>
+
+                        <Toolbar>
+
+                            <Title
+                                text="{i18n>delayedApprovalDetails}"
+                                level="H2"/>
+
+                            <ToolbarSpacer/>
+
+                            <ObjectStatus
+                                text="{i18n>highDelay}"
+                                state="Error"
+                                icon="sap-icon://alert"/>
+
+                        </Toolbar>
+
+                    </headerToolbar>
+
+
+                    <!-- ================================================= -->
+                    <!-- COLUMNS                                           -->
+                    <!-- ================================================= -->
+
+                    <columns>
+
+
+                        <!-- PR NUMBER -->
+
+                        <Column
+                            width="8rem">
+
+                            <Text
+                                text="{i18n>prNumber}"/>
+
+                        </Column>
+
+
+                        <!-- DEPARTMENT -->
+
+                        <Column
+                            width="10rem">
+
+                            <Text
+                                text="{i18n>department}"/>
+
+                        </Column>
+
+
+                        <!-- CREATED -->
+
+                        <Column
+                            width="9rem">
+
+                            <Text
+                                text="{i18n>created}"/>
+
+                        </Column>
+
+
+                        <!-- APPROVED -->
+
+                        <Column
+                            width="9rem">
+
+                            <Text
+                                text="{i18n>approved}"/>
+
+                        </Column>
+
+
+                        <!-- SLA -->
+
+                        <Column
+                            width="6rem"
+                            hAlign="Center">
+
+                            <Text
+                                text="{i18n>sla}"/>
+
+                        </Column>
+
+
+                        <!-- APPROVAL CYCLE -->
+
+                        <Column
+                            width="9rem"
+                            hAlign="Center">
+
+                            <Text
+                                text="{i18n>approvalCycle}"/>
+
+                        </Column>
+
+
+                        <!-- DELAY -->
+
+                        <Column
+                            width="7rem"
+                            hAlign="Center">
+
+                            <Text
+                                text="{i18n>delay}"/>
+
+                        </Column>
+
+
+                        <!-- DELAY % -->
+
+                        <Column
+                            width="8rem"
+                            hAlign="Center">
+
+                            <Text
+                                text="{i18n>delayPercentage}"/>
+
+                        </Column>
+
+
+                        <!-- RISK -->
+
+                        <Column
+                            width="10rem">
+
+                            <Text
+                                text="{i18n>risk}"/>
+
+                        </Column>
+
+
+                        <!-- STATUS -->
+
+                        <Column
+                            width="9rem">
+
+                            <Text
+                                text="{i18n>status}"/>
+
+                        </Column>
+
+
+                        <!-- ACTIONS -->
+
+                        <Column
+                            width="14rem"
+                            hAlign="Center">
+
+                            <Text
+                                text="{i18n>actions}"/>
+
+                        </Column>
+
+                    </columns>
+
+
+                    <!-- ================================================= -->
+                    <!-- ROWS                                              -->
+                    <!-- ================================================= -->
+
+                    <items>
+
+                        <ColumnListItem
+                            type="Active"
+                            press=".onRowPress">
+
+                            <cells>
+
+
+                                <!-- ===================================== -->
+                                <!-- PR NUMBER                              -->
+                                <!-- ===================================== -->
+
+                                <ObjectIdentifier
+                                    title="{PRNumber}"
+                                    text="{MaterialDescription}"/>
+
+
+                                <!-- ===================================== -->
+                                <!-- DEPARTMENT                             -->
+                                <!-- ===================================== -->
+
+                                <Text
+                                    text="{Department}"/>
+
+
+                                <!-- ===================================== -->
+                                <!-- CREATED                                -->
+                                <!-- ===================================== -->
+
+                                <Text
+                                    text="{
+                                        path: 'CreatedDate',
+                                        type: 'sap.ui.model.type.Date',
+                                        formatOptions: {
+                                            style: 'medium'
+                                        }
+                                    }"/>
+
+
+                                <!-- ===================================== -->
+                                <!-- APPROVED                               -->
+                                <!-- ===================================== -->
+
+                                <Text
+                                    text="{
+                                        path: 'ApprovalDate',
+                                        type: 'sap.ui.model.type.Date',
+                                        formatOptions: {
+                                            style: 'medium'
+                                        }
+                                    }"/>
+
+
+                                <!-- ===================================== -->
+                                <!-- SLA                                    -->
+                                <!-- ===================================== -->
+
+                                <ObjectNumber
+                                    number="{SLAInDays}"
+                                    unit="{i18n>daysShort}"/>
+
+
+                                <!-- ===================================== -->
+                                <!-- APPROVAL CYCLE                         -->
+                                <!-- ===================================== -->
+
+                                <ObjectNumber
+                                    number="{ApprovalCycleTime}"
+                                    unit="{i18n>daysShort}"
+                                    state="Error"/>
+
+
+                                <!-- ===================================== -->
+                                <!-- DELAY                                  -->
+                                <!-- ===================================== -->
+
+                                <ObjectNumber
+                                    number="{DelayDays}"
+                                    unit="{i18n>daysShort}"
+                                    state="{
+                                        path: 'DelayDays',
+                                        formatter: '.formatter.delayState'
+                                    }"/>
+
+
+                                <!-- ===================================== -->
+                                <!-- DELAY %                                -->
+                                <!-- ===================================== -->
+
+                                <ObjectStatus
+                                    text="{
+                                        path: 'DelayPercentage',
+                                        formatter: '.formatter.formatPercentage'
+                                    }"
+                                    state="{
+                                        path: 'DelayPercentage',
+                                        formatter: '.formatter.delayPercentageState'
+                                    }"/>
+
+
+                                <!-- ===================================== -->
+                                <!-- RISK                                   -->
+                                <!-- ===================================== -->
+
+                                <ObjectStatus
+                                    text="{
+                                        path: 'RiskLevel',
+                                        formatter: '.formatter.riskText'
+                                    }"
+                                    state="{
+                                        path: 'RiskLevel',
+                                        formatter: '.formatter.riskState'
+                                    }"
+                                    icon="sap-icon://warning"/>
+
+
+                                <!-- ===================================== -->
+                                <!-- STATUS                                 -->
+                                <!-- ===================================== -->
+
+                                <ObjectStatus
+                                    text="{Status}"
+                                    state="{
+                                        path: 'Status',
+                                        formatter: '.formatter.statusState'
+                                    }"/>
+
+
+                                <!-- ===================================== -->
+                                <!-- ACTIONS                                -->
+                                <!-- ===================================== -->
+
+                                <HBox
+                                    justifyContent="Center"
+                                    wrap="Wrap">
+
+
+                                    <!-- APPROVE -->
+
+                                    <Button
+                                        icon="sap-icon://accept"
+                                        tooltip="{i18n>approve}"
+                                        type="Transparent"
+                                        press=".onApprove"
+                                        enabled="{
+                                            = ${Status} === 'Pending'
+                                        }"/>
+
+
+                                    <!-- REJECT -->
+
+                                    <Button
+                                        icon="sap-icon://decline"
+                                        tooltip="{i18n>reject}"
+                                        type="Transparent"
+                                        press=".onReject"
+                                        enabled="{
+                                            = ${Status} === 'Pending'
+                                        }"/>
+
+
+                                    <!-- URGENT -->
+
+                                    <Button
+                                        icon="sap-icon://flag"
+                                        tooltip="{i18n>markUrgent}"
+                                        type="Transparent"
+                                        press=".onMarkUrgent"/>
+
+
+                                    <!-- CREATE PO -->
+
+                                    <Button
+                                        icon="sap-icon://cart"
+                                        tooltip="{i18n>createPurchaseOrder}"
+                                        type="Transparent"
+                                        press=".onCreatePurchaseOrder"
+                                        enabled="{
+                                            = ${Status} === 'Approved'
+                                        }"/>
+
+                                </HBox>
+
+                            </cells>
+
+                        </ColumnListItem>
+
+                    </items>
+
+                </Table>
+
+            </VBox>
+
+        </content>
+
+    </Page>
+
+</mvc:View>

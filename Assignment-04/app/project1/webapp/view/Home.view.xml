@@ -1,0 +1,525 @@
+<mvc:View
+    controllerName="pr.tracker.project1.controller.Home"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page
+        id="homePage"
+        showHeader="false"
+        class="prTrackerPage">
+
+        <content>
+
+            <VBox
+                id="homeContainer"
+                class="sapUiResponsiveContentPadding"
+                width="100%">
+
+                <!-- ================================================= -->
+                <!-- HERO SECTION                                      -->
+                <!-- ================================================= -->
+
+                <VBox
+                    id="heroSection"
+                    class="heroSection"
+                    width="100%">
+
+                    <Toolbar
+                        class="heroToolbar">
+
+                        <Title
+                            text="{i18n>appTitle}"
+                            level="H2"
+                            class="heroTitle"/>
+
+                        <ToolbarSpacer/>
+
+                        <Button
+                            icon="sap-icon://refresh"
+                            tooltip="{i18n>refresh}"
+                            type="Transparent"
+                            press=".onRefresh"
+                            class="heroRefreshButton"/>
+
+                    </Toolbar>
+
+                    <VBox
+                        class="heroContent">
+
+                        <Title
+                            text="{i18n>dashboardTitle}"
+                            level="H1"
+                            class="heroMainTitle"/>
+
+                        <Text
+                            text="{i18n>dashboardSubtitle}"
+                            class="heroSubtitle"/>
+
+                    </VBox>
+
+                </VBox>
+
+
+                <!-- ================================================= -->
+                <!-- KPI SECTION 1                                    -->
+                <!-- ================================================= -->
+
+                <Title
+                    text="{i18n>overview}"
+                    level="H2"
+                    class="sectionTitle"/>
+
+
+                <HBox
+                    id="primaryKpiContainer"
+                    class="kpiContainer"
+                    width="100%"
+                    wrap="Wrap">
+
+
+                    <!-- TOTAL PRs -->
+
+                    <GenericTile
+                        id="totalPRTile"
+                        class="kpiTile"
+                        header="{i18n>totalPRs}"
+                        subheader="{i18n>allPurchaseRequisitions}"
+                        press=".onNavigateAging">
+
+                        <TileContent>
+
+                            <NumericContent
+                                value="{dashboard>/TotalPRs}"
+                                icon="sap-icon://document-text"
+                                valueColor="Neutral"
+                                truncateValueTo="6"/>
+
+                        </TileContent>
+
+                    </GenericTile>
+
+
+                    <!-- AGING PRs -->
+
+                    <GenericTile
+                        id="agingPRTile"
+                        class="kpiTile"
+                        header="{i18n>agingPRs}"
+                        subheader="{i18n>atRiskOrBreached}"
+                        press=".onNavigateAging">
+
+                        <TileContent>
+
+                            <NumericContent
+                                value="{dashboard>/AgingPRs}"
+                                icon="sap-icon://lateness"
+                                valueColor="Critical"
+                                truncateValueTo="6"/>
+
+                        </TileContent>
+
+                    </GenericTile>
+
+
+                    <!-- DELAYED PRs -->
+
+                    <GenericTile
+                        id="delayedPRTile"
+                        class="kpiTile"
+                        header="{i18n>delayedPRs}"
+                        subheader="{i18n>delayedApprovals}"
+                        press=".onNavigateDelayed">
+
+                        <TileContent>
+
+                            <NumericContent
+                                value="{dashboard>/DelayedPRs}"
+                                icon="sap-icon://alert"
+                                valueColor="Error"
+                                truncateValueTo="6"/>
+
+                        </TileContent>
+
+                    </GenericTile>
+
+
+                    <!-- BOTTLENECKS -->
+
+                    <GenericTile
+                        id="bottleneckTile"
+                        class="kpiTile"
+                        header="{i18n>bottlenecks}"
+                        subheader="{i18n>departmentAnalysis}"
+                        press=".onNavigateBottleneck">
+
+                        <TileContent>
+
+                            <NumericContent
+                                value="{dashboard>/HighRiskPRs}"
+                                icon="sap-icon://business-objects-experience"
+                                valueColor="Critical"
+                                truncateValueTo="6"/>
+
+                        </TileContent>
+
+                    </GenericTile>
+
+                </HBox>
+
+
+                <!-- ================================================= -->
+                <!-- KPI SECTION 2                                    -->
+                <!-- ================================================= -->
+
+                <HBox
+                    id="secondaryKpiContainer"
+                    class="kpiContainer"
+                    width="100%"
+                    wrap="Wrap">
+
+
+                    <!-- PENDING -->
+
+                    <VBox
+                        class="kpiCard"
+                        width="23%">
+
+                        <ObjectNumber
+                            number="{dashboard>/PendingPRs}"
+                            unit=""
+                            state="Warning"
+                            class="kpiNumber"/>
+
+                        <Text
+                            text="{i18n>pendingPRs}"
+                            class="kpiLabel"/>
+
+                        <ObjectStatus
+                            text="{i18n>awaitingApproval}"
+                            state="Warning"
+                            icon="sap-icon://pending"
+                            class="kpiStatus"/>
+
+                    </VBox>
+
+
+                    <!-- APPROVED -->
+
+                    <VBox
+                        class="kpiCard"
+                        width="23%">
+
+                        <ObjectNumber
+                            number="{dashboard>/ApprovedPRs}"
+                            unit=""
+                            state="Success"
+                            class="kpiNumber"/>
+
+                        <Text
+                            text="{i18n>approvedPRs}"
+                            class="kpiLabel"/>
+
+                        <ObjectStatus
+                            text="{i18n>successfullyApproved}"
+                            state="Success"
+                            icon="sap-icon://accept"
+                            class="kpiStatus"/>
+
+                    </VBox>
+
+
+                    <!-- HIGH RISK -->
+
+                    <VBox
+                        class="kpiCard"
+                        width="23%">
+
+                        <ObjectNumber
+                            number="{dashboard>/HighRiskPRs}"
+                            unit=""
+                            state="Error"
+                            class="kpiNumber"/>
+
+                        <Text
+                            text="{i18n>highRiskPRs}"
+                            class="kpiLabel"/>
+
+                        <ObjectStatus
+                            text="{i18n>likelySLABreach}"
+                            state="Error"
+                            icon="sap-icon://warning"
+                            class="kpiStatus"/>
+
+                    </VBox>
+
+
+                    <!-- AVERAGE APPROVAL -->
+
+                    <VBox
+                        class="kpiCard"
+                        width="23%">
+
+                        <ObjectNumber
+                            number="{dashboard>/AverageApprovalTime}"
+                            unit="{i18n>days}"
+                            state="Information"
+                            class="kpiNumber"/>
+
+                        <Text
+                            text="{i18n>averageApproval}"
+                            class="kpiLabel"/>
+
+                        <ObjectStatus
+                            text="{i18n>approvalCycleTime}"
+                            state="Information"
+                            icon="sap-icon://history"
+                            class="kpiStatus"/>
+
+                    </VBox>
+
+                </HBox>
+
+
+                <!-- ================================================= -->
+                <!-- AI PREDICTION SECTION                            -->
+                <!-- ================================================= -->
+
+                <VBox
+                    id="aiSection"
+                    class="dashboardSection"
+                    width="100%">
+
+                    <HBox
+                        class="aiHeader"
+                        width="100%">
+
+                        <VBox>
+
+                            <Title
+                                text="{i18n>aiPredictionTitle}"
+                                level="H2"
+                                class="aiTitle"/>
+
+                            <Text
+                                text="{i18n>aiPredictionSubtitle}"
+                                class="aiSubtitle"/>
+
+                        </VBox>
+
+                        <ToolbarSpacer/>
+
+                        <ObjectStatus
+                            text="{i18n>ruleBasedPrediction}"
+                            state="Information"
+                            icon="sap-icon://machine"
+                            class="aiStatus"/>
+
+                    </HBox>
+
+
+                    <HBox
+                        class="aiContent"
+                        width="100%"
+                        wrap="Wrap">
+
+
+                        <!-- HIGH RISK COUNT -->
+
+                        <VBox
+                            class="aiMetricCard">
+
+                            <ObjectNumber
+                                number="{dashboard>/HighRiskPRs}"
+                                state="Error"
+                                class="aiMetricNumber"/>
+
+                            <Text
+                                text="{i18n>highRiskPRs}"
+                                class="aiMetricLabel"/>
+
+                            <Text
+                                text="{i18n>highRiskDescription}"
+                                class="aiMetricDescription"/>
+
+                        </VBox>
+
+
+                        <!-- RISK EXPLANATION -->
+
+                        <VBox
+                            class="aiExplanationCard">
+
+                            <HBox>
+
+                                <core:Icon
+                                    src="sap-icon://lightbulb"
+                                    size="1.5rem"
+                                    class="aiIcon"/>
+
+                                <VBox
+                                    class="sapUiSmallMarginBegin">
+
+                                    <Title
+                                        text="{i18n>howPredictionWorks}"
+                                        level="H4"/>
+
+                                    <Text
+                                        text="{i18n>predictionExplanation}"
+                                        wrapping="true"/>
+
+                                </VBox>
+
+                            </HBox>
+
+                        </VBox>
+
+
+                        <!-- OPEN HIGH RISK -->
+
+                        <VBox
+                            class="aiActionCard">
+
+                            <Button
+                                text="{i18n>viewHighRiskPRs}"
+                                icon="sap-icon://navigation-right-arrow"
+                                type="Emphasized"
+                                press=".onOpenHighRisk"
+                                width="100%"/>
+
+                        </VBox>
+
+                    </HBox>
+
+                </VBox>
+
+
+                <!-- ================================================= -->
+                <!-- NAVIGATION SECTION                               -->
+                <!-- ================================================= -->
+
+                <Title
+                    text="{i18n>quickAccess}"
+                    level="H2"
+                    class="sectionTitle"/>
+
+
+                <HBox
+                    id="navigationCards"
+                    width="100%"
+                    class="navigationContainer"
+                    wrap="Wrap">
+
+
+                    <!-- AGING -->
+
+                    <VBox
+                        class="navigationCard">
+
+                        <core:Icon
+                            src="sap-icon://lateness"
+                            size="2rem"
+                            class="navigationIcon"/>
+
+                        <Title
+                            text="{i18n>prAgingReport}"
+                            level="H3"/>
+
+                        <Text
+                            text="{i18n>prAgingDescription}"
+                            wrapping="true"/>
+
+                        <Button
+                            text="{i18n>openReport}"
+                            type="Transparent"
+                            icon="sap-icon://navigation-right-arrow"
+                            press=".onNavigateAging"/>
+
+                    </VBox>
+
+
+                    <!-- DELAYED -->
+
+                    <VBox
+                        class="navigationCard">
+
+                        <core:Icon
+                            src="sap-icon://alert"
+                            size="2rem"
+                            class="navigationIcon"/>
+
+                        <Title
+                            text="{i18n>delayedApprovals}"
+                            level="H3"/>
+
+                        <Text
+                            text="{i18n>delayedDescription}"
+                            wrapping="true"/>
+
+                        <Button
+                            text="{i18n>openReport}"
+                            type="Transparent"
+                            icon="sap-icon://navigation-right-arrow"
+                            press=".onNavigateDelayed"/>
+
+                    </VBox>
+
+
+                    <!-- BOTTLENECK -->
+
+                    <VBox
+                        class="navigationCard">
+
+                        <core:Icon
+                            src="sap-icon://business-objects-experience"
+                            size="2rem"
+                            class="navigationIcon"/>
+
+                        <Title
+                            text="{i18n>departmentBottlenecks}"
+                            level="H3"/>
+
+                        <Text
+                            text="{i18n>bottleneckDescription}"
+                            wrapping="true"/>
+
+                        <Button
+                            text="{i18n>openAnalysis}"
+                            type="Transparent"
+                            icon="sap-icon://navigation-right-arrow"
+                            press=".onNavigateBottleneck"/>
+
+                    </VBox>
+
+                </HBox>
+
+
+                <!-- ================================================= -->
+                <!-- FOOTER INFORMATION                              -->
+                <!-- ================================================= -->
+
+                <HBox
+                    class="dashboardFooter"
+                    width="100%">
+
+                    <ObjectStatus
+                        text="{i18n>dataSource}"
+                        state="Information"
+                        icon="sap-icon://database"/>
+
+                    <ToolbarSpacer/>
+
+                    <Text
+                        text="{i18n>sapCapBackend}"
+                        class="footerText"/>
+
+                </HBox>
+
+            </VBox>
+
+        </content>
+
+    </Page>
+
+</mvc:View>

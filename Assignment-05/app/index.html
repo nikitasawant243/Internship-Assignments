@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Master Upload</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html, body { margin: 0; padding: 0; height: 100%; }
+
+        #appContainer {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+            font-family: 'Inter', Arial, Helvetica, sans-serif;
+        }
+
+        /* ---- Page header ---- */
+        .page-header {
+            border-bottom: 2px solid #0070f2;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .page-header h1 {
+            margin: 0 0 0.25rem;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1d2d3e;
+        }
+        .page-header p {
+            margin: 0;
+            color: #556b82;
+            font-size: 0.95rem;
+        }
+
+        /* ---- Card ---- */
+        .card {
+            background: #fff;
+            border: 1px solid #d9d9d9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 4px rgba(0,0,0,.06);
+        }
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1d2d3e;
+            margin: 0 0 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            background: #0070f2;
+            border-radius: 2px;
+        }
+
+        /* ---- Upload zone ---- */
+        .upload-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        #fileInput {
+            flex: 1;
+            min-width: 220px;
+            border: 1px dashed #0070f2;
+            border-radius: 6px;
+            padding: 0.55rem 0.75rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            background: #f5f9ff;
+            color: #1d2d3e;
+        }
+        #fileInput:focus { outline: 2px solid #0070f2; }
+        .file-info {
+            font-size: 0.82rem;
+            color: #556b82;
+            margin-top: 0.4rem;
+        }
+        .btn {
+            padding: 0.52rem 1.4rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.18s, opacity 0.18s;
+        }
+        .btn-primary { background: #0070f2; color: #fff; }
+        .btn-primary:hover:not(:disabled) { background: #0057c2; }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-ghost { background: #f0f2f4; color: #1d2d3e; }
+        .btn-ghost:hover { background: #e0e4e9; }
+
+        /* ---- Spinner ---- */
+        .spinner-row {
+            display: none;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 0.9rem;
+            color: #556b82;
+            font-size: 0.88rem;
+        }
+        .spinner {
+            width: 18px; height: 18px;
+            border: 2px solid #d9d9d9;
+            border-top-color: #0070f2;
+            border-radius: 50%;
+            animation: spin 0.75s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ---- Message strip ---- */
+        .msg-strip {
+            display: none;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1.25rem;
+            border-left: 4px solid;
+        }
+        .msg-success { background: #eaf5ea; border-color: #2e7d32; color: #1b5e20; }
+        .msg-error   { background: #fdecea; border-color: #c62828; color: #7f0000; }
+        .msg-warning { background: #fff8e1; border-color: #f57f17; color: #4e342e; }
+
+        /* ---- Summary tiles ---- */
+        .tiles-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .tile {
+            flex: 1;
+            min-width: 140px;
+            background: #fff;
+            border: 1px solid #d9d9d9;
+            border-radius: 8px;
+            padding: 1rem 1.2rem;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,.05);
+        }
+        .tile-label { font-size: 0.78rem; color: #556b82; text-transform: uppercase; letter-spacing: 0.05em; }
+        .tile-value { font-size: 2rem; font-weight: 700; margin: 0.2rem 0; }
+        .tile-total   .tile-value { color: #1d2d3e; }
+        .tile-success .tile-value { color: #2e7d32; }
+        .tile-failed  .tile-value { color: #c62828; }
+
+        /* ---- Error table ---- */
+        .table-wrapper { overflow-x: auto; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+        }
+        thead tr { background: #f0f4f8; }
+        th {
+            padding: 0.65rem 0.9rem;
+            text-align: left;
+            font-weight: 600;
+            color: #1d2d3e;
+            border-bottom: 2px solid #d9d9d9;
+            white-space: nowrap;
+        }
+        td {
+            padding: 0.6rem 0.9rem;
+            border-bottom: 1px solid #ececec;
+            vertical-align: top;
+        }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: #f8fafc; }
+        .td-rno  { font-weight: 600; color: #0070f2; width: 80px; }
+        .td-emp  { font-weight: 600; color: #1d2d3e; width: 120px; }
+        .td-err  { color: #c62828; }
+
+        /* ---- Results section ---- */
+        #resultsSection { display: none; }
+    </style>
+</head>
+<body>
+
+<div id="appContainer">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>&#128194; Employee Master Upload</h1>
+        <p>Upload an Excel (.xlsx) file to add employee records. All rows are validated before inserting.</p>
+    </div>
+
+    <!-- Upload Card -->
+    <div class="card">
+        <div class="card-title">Upload Excel File</div>
+        <div class="upload-row">
+            <input type="file" id="fileInput" accept=".xlsx">
+            <button class="btn btn-primary" id="uploadBtn" onclick="handleUpload()">&#8593; Upload</button>
+            <button class="btn btn-ghost" id="resetBtn" onclick="handleReset()">&#10006; Reset</button>
+        </div>
+        <div class="file-info" id="fileInfo"></div>
+        <div class="spinner-row" id="spinnerRow">
+            <div class="spinner"></div>
+            Validating and uploading records, please wait…
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <div id="resultsSection">
+
+        <!-- Message Strip -->
+        <div class="msg-strip" id="msgStrip"></div>
+
+        <!-- Summary Tiles -->
+        <div class="tiles-row">
+            <div class="tile tile-total">
+                <div class="tile-label">Total Rows</div>
+                <div class="tile-value" id="tilTotal">0</div>
+            </div>
+            <div class="tile tile-success">
+                <div class="tile-label">Successful</div>
+                <div class="tile-value" id="tilSuccess">0</div>
+            </div>
+            <div class="tile tile-failed">
+                <div class="tile-label">Failed</div>
+                <div class="tile-value" id="tilFailed">0</div>
+            </div>
+        </div>
+
+        <!-- Error Table Card -->
+        <div class="card" id="errorCard" style="display:none">
+            <div class="card-title">Validation Errors</div>
+            <div class="table-wrapper">
+                <table id="errorTable">
+                    <thead>
+                        <tr>
+                            <th>Row No</th>
+                            <th>Employee ID</th>
+                            <th>Error(s)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="errorTbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </div><!-- /resultsSection -->
+
+</div><!-- /appContainer -->
+
+<script>
+    // ----------------------------------------------------------------
+    // File input → show file info
+    // ----------------------------------------------------------------
+    document.getElementById('fileInput').addEventListener('change', function () {
+        const f = this.files[0];
+        document.getElementById('fileInfo').textContent = f
+            ? 'Selected: ' + f.name + ' (' + (f.size / 1024).toFixed(1) + ' KB)'
+            : '';
+    });
+
+    // ----------------------------------------------------------------
+    // UPLOAD
+    // ----------------------------------------------------------------
+    async function handleUpload() {
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+
+        // Inline validation (no alert)
+        if (!file) {
+            showMsg('Please select an Excel (.xlsx) file before uploading.', 'warning');
+            document.getElementById('resultsSection').style.display = 'block';
+            return;
+        }
+        if (!file.name.toLowerCase().endsWith('.xlsx')) {
+            showMsg('Invalid file type. Only .xlsx files are supported.', 'error');
+            document.getElementById('resultsSection').style.display = 'block';
+            return;
+        }
+
+        setBusy(true);
+        clearResults();
+
+        try {
+            const base64 = await toBase64(file);
+
+            const resp = await fetch('/employee/uploadEmployees', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ fileName: file.name, fileContent: base64 })
+            });
+
+            const data = await resp.json();
+            renderResult(data);
+
+        } catch (err) {
+            showMsg('Network or server error: ' + err.message, 'error');
+            document.getElementById('resultsSection').style.display = 'block';
+        } finally {
+            setBusy(false);
+        }
+    }
+
+    // ----------------------------------------------------------------
+    // RESET
+    // ----------------------------------------------------------------
+    function handleReset() {
+        document.getElementById('fileInput').value = '';
+        document.getElementById('fileInfo').textContent = '';
+        clearResults();
+        document.getElementById('resultsSection').style.display = 'none';
+    }
+
+    // ----------------------------------------------------------------
+    // RENDER RESULT
+    // ----------------------------------------------------------------
+    function renderResult(data) {
+        document.getElementById('resultsSection').style.display = 'block';
+
+        // Tiles
+        document.getElementById('tilTotal').textContent   = data.totalRecords   || 0;
+        document.getElementById('tilSuccess').textContent = data.successRecords || 0;
+        document.getElementById('tilFailed').textContent  = data.failedRecords  || 0;
+
+        // Message strip
+        if (data.success) {
+            showMsg('&#10003; ' + data.message, 'success');
+        } else {
+            showMsg('&#10007; ' + data.message, 'error');
+        }
+
+        // Error table
+        const errors = data.errors || [];
+        if (errors.length) {
+            renderErrorTable(errors);
+        }
+    }
+
+    function renderErrorTable(errors) {
+        const tbody = document.getElementById('errorTbody');
+        tbody.innerHTML = '';
+
+        errors.forEach(function (e) {
+            const tr = document.createElement('tr');
+            tr.innerHTML =
+                '<td class="td-rno">' + (e.rowNo        || '') + '</td>' +
+                '<td class="td-emp">' + (e.employeeId   || '—') + '</td>' +
+                '<td class="td-err">' + escHtml(e.errorMessage || '') + '</td>';
+            tbody.appendChild(tr);
+        });
+
+        document.getElementById('errorCard').style.display = 'block';
+    }
+
+    // ----------------------------------------------------------------
+    // HELPERS
+    // ----------------------------------------------------------------
+    function showMsg(text, type) {
+        const el = document.getElementById('msgStrip');
+        el.className = 'msg-strip msg-' + type;
+        el.innerHTML = text;
+        el.style.display = 'block';
+    }
+
+    function clearResults() {
+        const el = document.getElementById('msgStrip');
+        el.style.display = 'none';
+        el.className = 'msg-strip';
+
+        document.getElementById('tilTotal').textContent   = '0';
+        document.getElementById('tilSuccess').textContent = '0';
+        document.getElementById('tilFailed').textContent  = '0';
+
+        document.getElementById('errorTbody').innerHTML = '';
+        document.getElementById('errorCard').style.display = 'none';
+    }
+
+    function setBusy(busy) {
+        document.getElementById('uploadBtn').disabled         = busy;
+        document.getElementById('spinnerRow').style.display   = busy ? 'flex' : 'none';
+    }
+
+    function toBase64(file) {
+        return new Promise(function (resolve, reject) {
+            const reader = new FileReader();
+            reader.onload  = function () { resolve(reader.result.split(',')[1]); };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function escHtml(str) {
+        return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+</script>
+
+</body>
+</html>
