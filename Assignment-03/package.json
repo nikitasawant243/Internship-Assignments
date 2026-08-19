@@ -1,0 +1,33 @@
+{
+  "name": "EmployeeManagement",
+  "version": "1.0.0",
+  "dependencies": {
+    "@sap/cds": "^8"
+  },
+  "devDependencies": {
+    "@sap/cds-dk": "^8",
+    "cds-plugin-ui5": "^0.17.0"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds watch",
+    "watch-employee-ui": "cds watch --open employeeui/index.html?sap-ui-xx-viewCache=false --livereload false"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": ":memory:"
+        }
+      }
+    }
+  },
+  "private": true,
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/employee-ui"
+  ]
+}
