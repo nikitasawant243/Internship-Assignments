@@ -1,0 +1,50 @@
+{
+  "xsappname": "vendor-onboarding-capm",
+  "tenant-mode": "dedicated",
+  "description": "Security descriptor for Vendor Onboarding CAPM",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Vendor.Upload",
+      "description": "Permission to upload vendor Excel files and submit for approval"
+    },
+    {
+      "name": "$XSAPPNAME.Vendor.Approve",
+      "description": "Permission to approve or reject vendor onboarding requests"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "Uploader",
+      "description": "Vendor Uploader — can upload Excel and submit vendors for approval",
+      "scope-references": [
+        "$XSAPPNAME.Vendor.Upload"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "Approver",
+      "description": "Vendor Approver — can approve or reject pending vendor records",
+      "scope-references": [
+        "$XSAPPNAME.Vendor.Approve"
+      ],
+      "attribute-references": []
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "VendorUploader",
+      "description": "Collection for Vendor Uploaders",
+      "role-template-references": [
+        "$XSAPPNAME.Uploader"
+      ]
+    },
+    {
+      "name": "VendorApprover",
+      "description": "Collection for Vendor Approvers",
+      "role-template-references": [
+        "$XSAPPNAME.Approver"
+      ]
+    }
+  ]
+}

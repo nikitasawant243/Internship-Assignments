@@ -1,0 +1,55 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Dialog
+        id="approveDialog"
+        title="Confirm Approval"
+        type="Message"
+        state="Success"
+        contentWidth="380px">
+
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <core:Icon
+                    src="sap-icon://accept"
+                    color="Positive"
+                    size="2.5rem"
+                    class="sapUiSmallMarginBottom" />
+                <Title
+                    text="Approve Vendor?"
+                    titleStyle="H5"
+                    class="sapUiSmallMarginBottom" />
+                <Text
+                    text="Vendor: {state>/pendingAction/vendorName}"
+                    wrapping="true"
+                    class="sapUiSmallMarginBottom" />
+                <Text
+                    text="This will move the vendor record to Vendor Master."
+                    wrapping="true"
+                    class="sapUiTinyMarginBottom" />
+
+                <TextArea
+                    id="approveComment"
+                    placeholder="Optional comment..."
+                    rows="3"
+                    width="100%"
+                    value="{state>/pendingAction/comment}" />
+            </VBox>
+        </content>
+
+        <beginButton>
+            <Button
+                text="Approve"
+                type="Accept"
+                press="onApproveConfirm" />
+        </beginButton>
+        <endButton>
+            <Button
+                text="Cancel"
+                press="onApproveCancel" />
+        </endButton>
+
+    </Dialog>
+
+</core:FragmentDefinition>

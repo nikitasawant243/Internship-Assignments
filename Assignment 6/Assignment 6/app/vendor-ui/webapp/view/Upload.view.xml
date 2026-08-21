@@ -1,0 +1,277 @@
+<mvc:View
+    controllerName="vendor.onboarding.controller.Upload"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.f"
+    xmlns:unified="sap.ui.unified"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page
+        id="uploadPage"
+        title="Vendor Onboarding — Excel Upload"
+        showNavButton="false"
+        backgroundDesign="List">
+
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Title text="📋 Vendor Onboarding" titleStyle="H4" />
+                </contentLeft>
+                <contentRight>
+                    <Button
+                        text="Approval Queue"
+                        icon="sap-icon://approvals"
+                        type="Emphasized"
+                        press="onNavigateToApproval" />
+                    <Button
+                        text="Vendor Master"
+                        icon="sap-icon://business-card"
+                        press="onNavigateToVendor" />
+                    <ObjectStatus
+                        title="Logged in as"
+                        text="{state>/currentUser}"
+                        state="Information"
+                        class="sapUiSmallMarginBegin" />
+                    <Button
+                        text="Switch User"
+                        icon="sap-icon://customer"
+                        press="onLogout"
+                        class="sapUiSmallMarginBegin" />
+                </contentRight>
+            </Bar>
+        </customHeader>
+
+        <content>
+            <VBox class="sapUiSmallMargin">
+
+                <!-- ── Hero / Info Card ──────────────────────────────────── -->
+                <Panel class="sapUiMediumMarginBottom" width="100%">
+                    <headerToolbar>
+                        <Toolbar>
+                            <core:Icon
+                                src="sap-icon://upload-to-cloud"
+                                size="1.5rem"
+                                color="#0070f2"
+                                class="sapUiSmallMarginEnd" />
+                            <VBox>
+                                <Title text="Excel Upload" titleStyle="H5" />
+                                <Text text="Upload vendor data from an Excel file. Supported format: .xlsx" />
+                            </VBox>
+                        </Toolbar>
+                    </headerToolbar>
+                    <VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiSmallMarginBottom">
+
+                            <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                                <core:Icon
+                                    src="sap-icon://hint"
+                                    color="Informative"
+                                    class="sapUiSmallMarginEnd" />
+                                <Text text="Columns required: Vendor Code, Vendor Name, PAN Number, GST Number, Country, Bank Account, IFSC, Credit Limit" />
+                            </HBox>
+
+                            <!-- File chooser row -->
+                            <HBox alignItems="Center" wrap="Wrap" class="sapUiSmallMarginBottom">
+                                <unified:FileUploader
+                                    id="fileUploader"
+                                    name="excelFile"
+                                    fileType="xlsx"
+                                    placeholder="Choose .xlsx file..."
+                                    change="onFileChange"
+                                    buttonText="Choose File"
+                                    buttonOnly="false"
+                                    width="350px"
+                                    class="sapUiSmallMarginEnd" />
+                                <Button
+                                    id="btnValidate"
+                                    text="Upload &amp; Validate"
+                                    icon="sap-icon://validate"
+                                    type="Emphasized"
+                                    enabled="{= ${state>/uploadPreview}.length > 0}"
+                                    press="onValidateAndUpload"
+                                    class="sapUiSmallMarginEnd" />
+                                <Button
+                                    id="btnClear"
+                                    text="Clear"
+                                    icon="sap-icon://clear-all"
+                                    press="onClear" />
+                            </HBox>
+
+                            <!-- Result message strip -->
+                            <MessageStrip
+                                id="uploadMessageStrip"
+                                text="{state>/uploadResultMessage}"
+                                type="{state>/uploadResultType}"
+                                showIcon="true"
+                                visible="{= !!${state>/uploadResultMessage}}"
+                                class="sapUiSmallMarginBottom" />
+
+                    </VBox>
+                </Panel>
+
+                <!-- ── Preview Table ─────────────────────────────────────── -->
+                <Panel
+                    id="previewPanel"
+                    headerText="File Preview"
+                    expandable="true"
+                    expanded="true"
+                    visible="{= ${state>/uploadPreview}.length > 0}"
+                    class="sapUiMediumMarginBottom">
+
+                    <Table
+                        id="previewTable"
+                        items="{state>/uploadPreview}"
+                        mode="None"
+                        alternateRowColors="true"
+                        growing="true"
+                        growingThreshold="10"
+                        sticky="ColumnHeaders">
+
+                        <headerToolbar>
+                            <Toolbar>
+                                <Title text="Preview — {= ${state>/uploadPreview}.length} row(s)" />
+                                <ToolbarSpacer />
+                                <ObjectStatus
+                                    title="Rows"
+                                    text="{= ${state>/uploadPreview}.length}"
+                                    state="Information" />
+                            </Toolbar>
+                        </headerToolbar>
+
+                        <columns>
+                            <Column width="5rem"><Text text="Row #" /></Column>
+                            <Column width="8rem"><Text text="Vendor Code" /></Column>
+                            <Column width="12rem"><Text text="Vendor Name" /></Column>
+                            <Column width="8rem"><Text text="PAN" /></Column>
+                            <Column width="12rem"><Text text="GST Number" /></Column>
+                            <Column width="5rem"><Text text="Country" /></Column>
+                            <Column width="10rem"><Text text="Bank Account" /></Column>
+                            <Column width="8rem"><Text text="IFSC" /></Column>
+                            <Column width="8rem" hAlign="End"><Text text="Credit Limit" /></Column>
+                        </columns>
+
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Text text="{state>rowNumber}" />
+                                    <Text text="{state>vendorCode}" />
+                                    <Text text="{state>vendorName}" />
+                                    <Text text="{state>panNumber}" />
+                                    <Text text="{state>gstNumber}" />
+                                    <Text text="{state>country}" />
+                                    <Text text="{state>bankAccount}" />
+                                    <Text text="{state>ifscCode}" />
+                                    <ObjectNumber
+                                        number="{state>creditLimit}"
+                                        unit="INR"
+                                        textAlign="End" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </Panel>
+
+                <!-- ── Validation Error Table ────────────────────────────── -->
+                <Panel
+                    id="errorPanel"
+                    headerText="Validation Errors"
+                    expandable="true"
+                    expanded="true"
+                    visible="{= ${state>/validationErrors}.length > 0}"
+                    class="sapUiMediumMarginBottom">
+
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title text="Validation Errors" />
+                            <ToolbarSpacer />
+                            <ObjectStatus
+                                title="Errors"
+                                text="{= ${state>/validationErrors}.length}"
+                                state="Error" />
+                        </Toolbar>
+                    </headerToolbar>
+
+                    <Table
+                        id="errorTable"
+                        items="{state>/validationErrors}"
+                        mode="None"
+                        alternateRowColors="true">
+
+                        <columns>
+                            <Column width="5rem"><Text text="Row #" /></Column>
+                            <Column width="10rem"><Text text="Vendor Code" /></Column>
+                            <Column width="10rem"><Text text="Field" /></Column>
+                            <Column><Text text="Error Message" /></Column>
+                        </columns>
+
+                        <items>
+                            <ColumnListItem highlight="Error">
+                                <cells>
+                                    <Text text="{state>rowNumber}" />
+                                    <Text text="{state>vendorCode}" />
+                                    <Text text="{state>field}" />
+                                    <Text text="{state>message}" wrapping="true" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </Panel>
+
+                <!-- ── Upload Stats Card ─────────────────────────────────── -->
+                <HBox
+                    visible="{= !!${state>/uploadResult}}"
+                    wrap="Wrap"
+                    class="sapUiMediumMarginBottom">
+
+                    <f:Card width="200px" class="sapUiSmallMarginEnd">
+                        <f:content>
+                            <VBox class="sapUiSmallMargin" alignItems="Center">
+                                <Title text="{state>/uploadResult/totalRows}" titleStyle="H1" />
+                                <Label text="Total Rows" />
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+
+                    <f:Card width="200px" class="sapUiSmallMarginEnd">
+                        <f:content>
+                            <VBox class="sapUiSmallMargin" alignItems="Center">
+                                <Title
+                                    text="{state>/uploadResult/validRows}"
+                                    titleStyle="H1"
+                                    class="sapUiPositiveText" />
+                                <Label text="Valid Rows" />
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+
+                    <f:Card width="200px">
+                        <f:content>
+                            <VBox class="sapUiSmallMargin" alignItems="Center">
+                                <Title
+                                    text="{state>/uploadResult/invalidRows}"
+                                    titleStyle="H1"
+                                    class="sapUiNegativeText" />
+                                <Label text="Invalid Rows" />
+                            </VBox>
+                        </f:content>
+                    </f:Card>
+
+                </HBox>
+
+            </VBox>
+        </content>
+
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button
+                    text="Download Sample Template"
+                    icon="sap-icon://download"
+                    press="onDownloadTemplate" />
+            </OverflowToolbar>
+        </footer>
+
+    </Page>
+
+</mvc:View>

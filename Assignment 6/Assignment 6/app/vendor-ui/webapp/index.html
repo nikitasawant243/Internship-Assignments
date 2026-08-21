@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vendor Onboarding</title>
+
+  <!-- SheetJS for client-side Excel parsing -->
+  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+
+  <!-- SAPUI5 Bootstrap -->
+  <script id="sap-ui-bootstrap"
+    src="https://ui5.sap.com/resources/sap-ui-core.js"
+    data-sap-ui-theme="sap_horizon"
+    data-sap-ui-libs="sap.m,sap.ui.core,sap.ui.layout,sap.f,sap.ui.unified"
+    data-sap-ui-resourceroots='{"vendor.onboarding": "./"}'
+    data-sap-ui-compatVersion="edge"
+    data-sap-ui-async="true"
+    data-sap-ui-frameOptions="trusted"
+    data-sap-ui-oninit="module:sap/ui/core/ComponentSupport">
+  </script>
+</head>
+<body class="sapUiBody" id="content">
+  <div data-sap-ui-component
+       data-name="vendor.onboarding"
+       data-id="container"
+       data-settings='{"id" : "vendor.onboarding"}'
+       style="height:100%">
+  </div>
+</body>
+</html>

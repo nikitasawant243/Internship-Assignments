@@ -1,0 +1,64 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Dialog
+        id="rejectDialog"
+        title="Reject Vendor"
+        type="Message"
+        state="Error"
+        contentWidth="420px">
+
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <core:Icon
+                    src="sap-icon://decline"
+                    color="Negative"
+                    size="2.5rem"
+                    class="sapUiSmallMarginBottom" />
+                <Title
+                    text="Reject Vendor?"
+                    titleStyle="H5"
+                    class="sapUiSmallMarginBottom" />
+                <Text
+                    text="Vendor: {state>/pendingAction/vendorName}"
+                    wrapping="true"
+                    class="sapUiSmallMarginBottom" />
+
+                <!-- Mandatory rejection comment -->
+                <Label
+                    text="Rejection Reason *"
+                    required="true"
+                    class="sapUiTinyMarginTop" />
+                <TextArea
+                    id="rejectComment"
+                    placeholder="Enter rejection reason (required)..."
+                    rows="4"
+                    width="100%"
+                    maxLength="500"
+                    value="{state>/pendingAction/comment}"
+                    valueState="{state>/pendingAction/commentState}"
+                    valueStateText="Rejection reason is mandatory." />
+
+                <Text
+                    text="Characters: {= (${state>/pendingAction/comment} || '').length} / 500"
+                    class="sapUiTinyMarginTop"
+                    wrapping="false" />
+            </VBox>
+        </content>
+
+        <beginButton>
+            <Button
+                text="Reject"
+                type="Reject"
+                press="onRejectConfirm" />
+        </beginButton>
+        <endButton>
+            <Button
+                text="Cancel"
+                press="onRejectCancel" />
+        </endButton>
+
+    </Dialog>
+
+</core:FragmentDefinition>

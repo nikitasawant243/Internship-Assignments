@@ -1,0 +1,33 @@
+{
+  "requires": {
+    "db": {
+      "kind": "sqlite",
+      "credentials": {
+        "database": ":memory:"
+      }
+    },
+    "auth": {
+      "kind": "dummy",
+      "users": {
+        "uploader": {
+          "password": "uploader123",
+          "roles": ["Uploader"]
+        },
+        "approver": {
+          "password": "approver123",
+          "roles": ["Approver"]
+        },
+        "admin": {
+          "password": "admin123",
+          "roles": ["Uploader", "Approver"]
+        }
+      }
+    }
+  },
+  "model": ["db", "srv"],
+  "log": {
+    "levels": {
+      "db": "warn"
+    }
+  }
+}

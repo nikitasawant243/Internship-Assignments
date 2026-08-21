@@ -1,0 +1,137 @@
+{
+  "_version": "1.58.0",
+
+  "sap.app": {
+    "id": "vendor.onboarding",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "title": "Vendor Onboarding",
+    "description": "Vendor Onboarding Excel Upload with Approval Workflow",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/vendor/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "sap-icon://upload-to-cloud"
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": false
+    }
+  },
+
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "vendor.onboarding.view.App",
+      "type": "XML",
+      "id": "appView"
+    },
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ui.layout": {},
+        "sap.f": {},
+        "sap.ui.unified": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true
+        }
+      },
+      "state": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {
+          "data": {
+            "uploadPreview": [],
+            "validationErrors": [],
+            "uploadResult": null,
+            "busy": false,
+            "selectedStagingID": null
+          }
+        }
+      }
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "vendor.onboarding.view",
+        "controlAggregation": "pages",
+        "controlId": "appNavCon",
+        "transition": "slide",
+        "bypassed": {
+          "target": "upload"
+        }
+      },
+      "routes": [
+        {
+          "name": "login",
+          "pattern": "",
+          "target": "login"
+        },
+        {
+          "name": "upload",
+          "pattern": "upload",
+          "target": "upload"
+        },
+        {
+          "name": "approval",
+          "pattern": "approval",
+          "target": "approval"
+        },
+        {
+          "name": "vendor",
+          "pattern": "vendor",
+          "target": "vendor"
+        }
+      ],
+      "targets": {
+        "login": {
+          "viewName": "Login",
+          "viewId": "loginView",
+          "viewLevel": 0
+        },
+        "upload": {
+          "viewName": "Upload",
+          "viewId": "uploadView",
+          "viewLevel": 1
+        },
+        "approval": {
+          "viewName": "Approval",
+          "viewId": "approvalView",
+          "viewLevel": 2
+        },
+        "vendor": {
+          "viewName": "Vendor",
+          "viewId": "vendorView",
+          "viewLevel": 3
+        }
+      }
+    }
+  }
+}

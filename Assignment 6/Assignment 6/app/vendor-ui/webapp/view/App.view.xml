@@ -1,0 +1,11 @@
+<mvc:View
+    controllerName="vendor.onboarding.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true">
+
+    <App id="appNavCon">
+        <!-- Pages are injected here by the router -->
+    </App>
+
+</mvc:View>

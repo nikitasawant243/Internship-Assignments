@@ -1,0 +1,105 @@
+<mvc:View
+    controllerName="vendor.onboarding.controller.Login"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page showHeader="false" backgroundDesign="List">
+        <content>
+
+            <!-- Outer centering wrapper -->
+            <VBox
+                height="100%"
+                justifyContent="Center"
+                alignItems="Center"
+                class="sapUiLargeMarginTop">
+
+                <!-- Card container -->
+                <VBox
+                    width="480px"
+                    class="sapUiResponsivePadding sapUiMediumMarginBottom">
+
+                    <!-- ── Title ─────────────────────────────────── -->
+                    <HBox alignItems="Center" class="sapUiMediumMarginBottom">
+                        <core:Icon
+                            src="sap-icon://upload-to-cloud"
+                            size="2rem"
+                            color="#0070f2"
+                            class="sapUiSmallMarginEnd" />
+                        <VBox>
+                            <Title text="Vendor Onboarding" titleStyle="H3" />
+                            <Text text="IBM Internship Assignment — Select your role to continue" />
+                        </VBox>
+                    </HBox>
+
+                    <Title
+                        text="Who are you?"
+                        titleStyle="H5"
+                        class="sapUiSmallMarginBottom" />
+
+                    <!-- ── Role buttons ───────────────────────────── -->
+                    <!-- Uploader -->
+                    <Button
+                        id="btnUploader"
+                        icon="sap-icon://upload-to-cloud"
+                        text="  Login as Uploader  —  Upload &amp; submit vendor Excel files"
+                        type="Default"
+                        width="100%"
+                        press="onLoginUploader"
+                        class="sapUiSmallMarginBottom loginRoleBtn" />
+
+                    <!-- Approver -->
+                    <Button
+                        id="btnApprover"
+                        icon="sap-icon://approvals"
+                        text="  Login as Approver  —  Approve or Reject pending vendors"
+                        type="Default"
+                        width="100%"
+                        press="onLoginApprover"
+                        class="sapUiSmallMarginBottom loginRoleBtn" />
+
+                    <!-- Admin -->
+                    <Button
+                        id="btnAdmin"
+                        icon="sap-icon://employee"
+                        text="  Login as Admin  —  Both Uploader &amp; Approver roles"
+                        type="Default"
+                        width="100%"
+                        press="onLoginAdmin"
+                        class="sapUiSmallMarginBottom loginRoleBtn" />
+
+                    <!-- Feedback strip (hidden until a role is selected) -->
+                    <MessageStrip
+                        id="feedbackStrip"
+                        text=""
+                        type="Success"
+                        showIcon="true"
+                        visible="false"
+                        class="sapUiSmallMarginBottom" />
+
+                    <!-- Enter button -->
+                    <Button
+                        id="enterBtn"
+                        text="Enter Application"
+                        icon="sap-icon://along-stacked-chart"
+                        type="Emphasized"
+                        width="100%"
+                        enabled="false"
+                        press="onEnter"
+                        class="sapUiSmallMarginBottom" />
+
+                    <!-- Dev hint -->
+                    <MessageStrip
+                        text="Mock session — no real password. Session clears when the tab is closed."
+                        type="Warning"
+                        showIcon="true"
+                        showCloseButton="false" />
+
+                </VBox>
+            </VBox>
+
+        </content>
+    </Page>
+
+</mvc:View>

@@ -1,0 +1,43 @@
+{
+  "name": "vendor-onboarding-capm",
+  "version": "1.0.0",
+  "description": "Vendor Onboarding Excel Upload with Approval Workflow — IBM Internship Assignment",
+  "repository": "<add-your-repo-url>",
+  "license": "UNLICENSED",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node_modules/.bin/cds-serve",
+    "watch": "node_modules/.bin/cds watch",
+    "build": "node_modules/.bin/cds build/all",
+    "test": "echo \"No tests configured\" && exit 0"
+  },
+  "dependencies": {
+    "@sap/cds": "^8",
+    "express": "^4",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@sap/cds-dk": "^8",
+    "@cap-js/sqlite": "^1"
+  },
+  "cds": {
+    "model": ["db", "srv"],
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": ":memory:"
+        }
+      },
+      "auth": {
+        "kind": "dummy"
+      }
+    },
+    "features": {
+      "assert_integrity": "DB"
+    }
+  }
+}

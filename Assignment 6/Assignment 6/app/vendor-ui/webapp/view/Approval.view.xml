@@ -1,0 +1,179 @@
+<mvc:View
+    controllerName="vendor.onboarding.controller.Approval"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page
+        id="approvalPage"
+        showNavButton="false"
+        backgroundDesign="List">
+
+        <!-- ── Header ─────────────────────────────────────────────────── -->
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Button icon="sap-icon://nav-back" press="onNavBack" tooltip="Back to Upload" />
+                    <Title text="Vendor Approval Queue" titleStyle="H4" />
+                </contentLeft>
+                <contentRight>
+                    <Button text="Upload"        icon="sap-icon://upload-to-cloud" press="onNavigateToUpload" />
+                    <Button text="Vendor Master" icon="sap-icon://business-card"   press="onNavigateToVendor" />
+                    <Text text="{state>/currentUser}" class="sapUiSmallMarginBegin sapUiSmallMarginEnd" />
+                    <Button text="Switch User"   icon="sap-icon://customer"         press="onLogout" />
+                </contentRight>
+            </Bar>
+        </customHeader>
+
+        <content>
+            <VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+
+                <!-- ── Summary Row ────────────────────────────────────── -->
+                <HBox wrap="Wrap" class="sapUiSmallMarginTop sapUiSmallMarginBottom">
+
+                    <Panel width="150px" class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+                        <VBox alignItems="Center" class="sapUiSmallMargin">
+                            <Title id="totalCount"    text="0" titleStyle="H2" />
+                            <Label text="Total Staged" />
+                        </VBox>
+                    </Panel>
+
+                    <Panel width="150px" class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+                        <VBox alignItems="Center" class="sapUiSmallMargin">
+                            <Title id="pendingCount"  text="0" titleStyle="H2" class="sapUiWarningText" />
+                            <Label text="Pending" />
+                        </VBox>
+                    </Panel>
+
+                    <Panel width="150px" class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+                        <VBox alignItems="Center" class="sapUiSmallMargin">
+                            <Title id="approvedCount" text="0" titleStyle="H2" class="sapUiPositiveText" />
+                            <Label text="Approved" />
+                        </VBox>
+                    </Panel>
+
+                    <Panel width="150px" class="sapUiSmallMarginBottom">
+                        <VBox alignItems="Center" class="sapUiSmallMargin">
+                            <Title id="rejectedCount" text="0" titleStyle="H2" class="sapUiNegativeText" />
+                            <Label text="Rejected" />
+                        </VBox>
+                    </Panel>
+
+                </HBox>
+
+                <!-- ── Filter + Search Toolbar ────────────────────────── -->
+                <Toolbar class="sapUiSmallMarginBottom">
+                    <Label text="Status:" class="sapUiSmallMarginEnd" />
+                    <SegmentedButton
+                        id="statusFilter"
+                        selectionChange="onStatusFilterChange"
+                        selectedKey="PENDING">
+                        <items>
+                            <SegmentedButtonItem key="ALL"      text="All"      />
+                            <SegmentedButtonItem key="PENDING"  text="Pending"  />
+                            <SegmentedButtonItem key="APPROVED" text="Approved" />
+                            <SegmentedButtonItem key="REJECTED" text="Rejected" />
+                        </items>
+                    </SegmentedButton>
+                    <ToolbarSpacer />
+                    <SearchField
+                        id="approvalSearch"
+                        placeholder="Search vendor..."
+                        width="220px"
+                        search="onApprovalSearch" />
+                    <Button
+                        text="Refresh"
+                        icon="sap-icon://refresh"
+                        press="onRefresh" />
+                </Toolbar>
+
+                <!-- ── Staging Table ───────────────────────────────────── -->
+                <Table
+                    id="stagingTable"
+                    items="{
+                        path: '/StagingVendors',
+                        parameters: { $orderby: 'uploadedAt desc' }
+                    }"
+                    mode="None"
+                    alternateRowColors="true"
+                    growing="true"
+                    growingThreshold="20"
+                    sticky="ColumnHeaders,HeaderToolbar"
+                    noDataText="No vendors found for the selected filter.">
+
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title text="Vendor Staging Records" />
+                        </Toolbar>
+                    </headerToolbar>
+
+                    <columns>
+                        <Column width="4rem" ><Text text="Row"           /></Column>
+                        <Column width="8rem" ><Text text="Vendor Code"   /></Column>
+                        <Column width="13rem"><Text text="Vendor Name"   /></Column>
+                        <Column width="5rem" ><Text text="Country"       /></Column>
+                        <Column width="10rem" hAlign="End"><Text text="Credit Limit"/></Column>
+                        <Column width="8rem" ><Text text="Status"        /></Column>
+                        <Column             ><Text text="Approval Reason"/></Column>
+                        <Column width="13rem" hAlign="Center"><Text text="Actions" /></Column>
+                    </columns>
+
+                    <items>
+                        <ColumnListItem vAlign="Middle">
+                            <cells>
+                                <Text text="{rowNumber}" />
+                                <Text text="{vendorCode}" />
+                                <Text text="{vendorName}" />
+                                <Text text="{country_code}" />
+                                <ObjectNumber
+                                    number="{creditLimit}"
+                                    unit="INR"
+                                    textAlign="End" />
+                                <ObjectStatus
+                                    text="{
+                                        path: 'status',
+                                        formatter: '.formatter.statusText'
+                                    }"
+                                    state="{
+                                        path: 'status',
+                                        formatter: '.formatter.statusState'
+                                    }" />
+                                <Text text="{approvalReasons}" wrapping="true" />
+
+                                <!-- ── Action cell ───────────────────── -->
+                                <HBox justifyContent="Center" alignItems="Center">
+                                    <Button
+                                        id="approveBtn"
+                                        text="Approve"
+                                        type="Accept"
+                                        icon="sap-icon://accept"
+                                        press="onApprovePress"
+                                        class="sapUiTinyMarginEnd"
+                                        visible="{
+                                            path: 'status',
+                                            formatter: '.formatter.isPending'
+                                        }" />
+                                    <Button
+                                        id="rejectBtn"
+                                        text="Reject"
+                                        type="Reject"
+                                        icon="sap-icon://decline"
+                                        press="onRejectPress"
+                                        visible="{
+                                            path: 'status',
+                                            formatter: '.formatter.isPending'
+                                        }" />
+                                </HBox>
+
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+            </VBox>
+        </content>
+
+    </Page>
+
+</mvc:View>

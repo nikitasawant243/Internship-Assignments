@@ -1,0 +1,196 @@
+<mvc:View
+    controllerName="vendor.onboarding.controller.Vendor"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <Page
+        id="vendorPage"
+        title="Vendor Master"
+        showNavButton="true"
+        navButtonPress="onNavBack"
+        backgroundDesign="List">
+
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Button icon="sap-icon://nav-back" press="onNavBack" />
+                    <Title text="🏢 Vendor Master" titleStyle="H4" />
+                </contentLeft>
+                <contentRight>
+                    <Button
+                        text="Upload"
+                        icon="sap-icon://upload-to-cloud"
+                        press="onNavigateToUpload" />
+                    <Button
+                        text="Approval Queue"
+                        icon="sap-icon://approvals"
+                        type="Emphasized"
+                        press="onNavigateToApproval" />
+                    <ObjectStatus
+                        title="Logged in as"
+                        text="{state>/currentUser}"
+                        state="Information"
+                        class="sapUiSmallMarginBegin" />
+                    <Button
+                        text="Switch User"
+                        icon="sap-icon://customer"
+                        press="onLogout"
+                        class="sapUiSmallMarginBegin" />
+                </contentRight>
+            </Bar>
+        </customHeader>
+
+        <content>
+            <VBox class="sapUiSmallMargin">
+
+                <!-- ── Search and Export Toolbar ────────────────────────── -->
+                <Toolbar class="sapUiSmallMarginBottom">
+                    <SearchField
+                        id="vendorSearch"
+                        placeholder="Search by Vendor Code or Name..."
+                        width="300px"
+                        search="onSearch"
+                        liveChange="onSearchLive" />
+                    <ToolbarSpacer />
+                    <Button
+                        text="Export to Excel"
+                        icon="sap-icon://excel-attachment"
+                        press="onExport" />
+                    <Button
+                        text="Refresh"
+                        icon="sap-icon://refresh"
+                        press="onRefresh" />
+                </Toolbar>
+
+                <!-- ── Vendor Master Table ───────────────────────────────── -->
+                <Table
+                    id="vendorTable"
+                    items="{
+                        path: '/Vendors',
+                        parameters: { $orderby: 'approvedAt desc' }
+                    }"
+                    mode="SingleSelectMaster"
+                    selectionChange="onVendorSelect"
+                    alternateRowColors="true"
+                    growing="true"
+                    growingThreshold="20"
+                    sticky="ColumnHeaders,HeaderToolbar"
+                    noDataText="No approved vendors found.">
+
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title id="vendorTableTitle" text="Approved Vendors" />
+                            <ToolbarSpacer />
+                            <ObjectStatus
+                                id="vendorCount"
+                                title="Records"
+                                text="0"
+                                state="Information" />
+                        </Toolbar>
+                    </headerToolbar>
+
+                    <columns>
+                        <Column width="9rem"><Text text="Vendor Code" /></Column>
+                        <Column width="14rem"><Text text="Vendor Name" /></Column>
+                        <Column width="9rem"><Text text="PAN Number" /></Column>
+                        <Column width="14rem"><Text text="GST Number" /></Column>
+                        <Column width="5rem"><Text text="Country" /></Column>
+                        <Column width="11rem"><Text text="Bank Account" /></Column>
+                        <Column width="8rem"><Text text="IFSC" /></Column>
+                        <Column width="10rem" hAlign="End"><Text text="Credit Limit" /></Column>
+                        <Column width="10rem"><Text text="Approved By" /></Column>
+                        <Column width="12rem"><Text text="Approved At" /></Column>
+                    </columns>
+
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{vendorCode}" />
+                                <Text text="{vendorName}" />
+                                <Text text="{panNumber}" />
+                                <Text text="{gstNumber}" />
+                                <Text text="{country_code}" />
+                                <Text text="{bankAccount}" />
+                                <Text text="{ifscCode}" />
+                                <ObjectNumber
+                                    number="{creditLimit}"
+                                    unit="INR"
+                                    textAlign="End" />
+                                <Text text="{approvedBy}" />
+                                <Text text="{
+                                    path: 'approvedAt',
+                                    formatter: '.formatter.formatDateTime'
+                                }" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+                <!-- ── Audit Trail Panel ─────────────────────────────────── -->
+                <Panel
+                    id="auditPanel"
+                    headerText="Audit Trail"
+                    expandable="true"
+                    expanded="false"
+                    visible="{= !!${state>/selectedVendorID}}"
+                    class="sapUiMediumMarginTop">
+
+                    <headerToolbar>
+                        <Toolbar>
+                            <core:Icon
+                                src="sap-icon://history"
+                                class="sapUiSmallMarginEnd" />
+                            <Title text="Audit Trail — {state>/selectedVendorName}" />
+                            <ToolbarSpacer />
+                            <Button
+                                text="Close"
+                                icon="sap-icon://decline"
+                                press="onCloseAudit" />
+                        </Toolbar>
+                    </headerToolbar>
+
+                    <Table
+                        id="auditTable"
+                        items="{
+                            path: '/AuditLogs',
+                            parameters: { $orderby: 'changedAt desc' }
+                        }"
+                        alternateRowColors="true"
+                        noDataText="No audit records found.">
+
+                        <columns>
+                            <Column width="10rem"><Text text="Action" /></Column>
+                            <Column width="10rem"><Text text="Changed By" /></Column>
+                            <Column width="12rem"><Text text="Changed At" /></Column>
+                            <Column width="15rem"><Text text="Old Value (Status)" /></Column>
+                            <Column width="15rem"><Text text="New Value (Status)" /></Column>
+                        </columns>
+
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <ObjectStatus
+                                        text="{action}"
+                                        state="{= ${action} === 'APPROVE' ? 'Success' : ${action} === 'REJECT' ? 'Error' : 'Information'}" />
+                                    <Text text="{changedBy}" />
+                                    <Text text="{
+                                        path: 'changedAt',
+                                        formatter: '.formatter.formatDateTime'
+                                    }" />
+                                    <Text text="{oldValue}" wrapping="true" />
+                                    <Text text="{newValue}" wrapping="true" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </Panel>
+
+            </VBox>
+        </content>
+
+    </Page>
+
+</mvc:View>

@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vendor Onboarding</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f4f6f9;
+            color: #1d2939;
+        }
+
+        /* ================= HEADER ================= */
+
+        .header {
+            height: 64px;
+            background: #ffffff;
+            border-bottom: 1px solid #e4e7ec;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 38px;
+            height: 38px;
+            background: #0a6ed1;
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .app-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #dbeafe;
+            color: #0a6ed1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            bottom: 0;
+            width: 220px;
+            background: #ffffff;
+            border-right: 1px solid #e4e7ec;
+            padding: 22px 12px;
+        }
+
+        .nav-title {
+            font-size: 11px;
+            color: #98a2b3;
+            text-transform: uppercase;
+            padding: 0 14px;
+            margin-bottom: 10px;
+            letter-spacing: 0.6px;
+        }
+
+        .nav-item {
+            padding: 12px 14px;
+            border-radius: 7px;
+            margin-bottom: 5px;
+            color: #475467;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: #eaf3fc;
+            color: #0a6ed1;
+            font-weight: 600;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            margin-left: 220px;
+            padding: 94px 32px 40px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 26px;
+        }
+
+        .page-header h1 {
+            font-size: 27px;
+            font-weight: 600;
+        }
+
+        .page-header p {
+            margin-top: 5px;
+            color: #667085;
+            font-size: 14px;
+        }
+
+        /* ================= CARDS ================= */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 26px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e4e7ec;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(16, 24, 40, 0.04);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-label {
+            font-size: 13px;
+            color: #667085;
+        }
+
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eef5fc;
+            color: #0a6ed1;
+            font-size: 18px;
+        }
+
+        .card-number {
+            font-size: 28px;
+            font-weight: 600;
+            margin-top: 13px;
+        }
+
+        /* ================= UPLOAD ================= */
+
+        .section {
+            background: white;
+            border: 1px solid #e4e7ec;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 5px rgba(16, 24, 40, 0.04);
+        }
+
+        .section-header {
+            padding: 18px 22px;
+            border-bottom: 1px solid #eaecf0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-header h2 {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .section-body {
+            padding: 24px;
+        }
+
+        .upload-box {
+            border: 2px dashed #b7c9dd;
+            border-radius: 12px;
+            padding: 35px;
+            text-align: center;
+            background: #f8fbff;
+            transition: 0.2s;
+        }
+
+        .upload-box:hover {
+            border-color: #0a6ed1;
+            background: #f3f8fd;
+        }
+
+        .upload-icon {
+            width: 52px;
+            height: 52px;
+            margin: auto;
+            border-radius: 50%;
+            background: #e7f1fb;
+            color: #0a6ed1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            margin-bottom: 14px;
+        }
+
+        .upload-box h3 {
+            font-size: 16px;
+            margin-bottom: 7px;
+        }
+
+        .upload-box p {
+            color: #667085;
+            font-size: 13px;
+            margin-bottom: 17px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .file-label {
+            display: inline-block;
+            padding: 10px 18px;
+            background: white;
+            color: #0a6ed1;
+            border: 1px solid #0a6ed1;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .file-label:hover {
+            background: #eaf3fc;
+        }
+
+        .selected-file {
+            margin-top: 15px;
+            color: #344054;
+            font-size: 13px;
+        }
+
+        .primary-btn {
+            background: #0a6ed1;
+            color: white;
+            border: none;
+            padding: 11px 22px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .primary-btn:hover {
+            background: #085caf;
+        }
+
+        .primary-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        th {
+            text-align: left;
+            background: #f9fafb;
+            color: #667085;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 13px 16px;
+            border-bottom: 1px solid #eaecf0;
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f0f1f3;
+            font-size: 13px;
+        }
+
+        tr:hover {
+            background: #fafcff;
+        }
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .submitted {
+            background: #fff4cc;
+            color: #946200;
+        }
+
+        .approved {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .rejected {
+            background: #fee4e2;
+            color: #b42318;
+        }
+
+        .action-btn {
+            border: none;
+            padding: 7px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+
+        .approve-btn {
+            background: #e8f7ee;
+            color: #16803c;
+        }
+
+        .reject-btn {
+            background: #fff0ef;
+            color: #c43225;
+        }
+
+        /* ================= ERRORS ================= */
+
+        .error-row td {
+            color: #b42318;
+        }
+
+        .error-badge {
+            background: #fee4e2;
+            color: #b42318;
+            padding: 5px 9px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* ================= MODAL ================= */
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 500;
+            inset: 0;
+            background: rgba(16, 24, 40, 0.45);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            width: 430px;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .modal-content h2 {
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+        .modal-content p {
+            color: #667085;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 110px;
+            resize: vertical;
+            border: 1px solid #d0d5dd;
+            border-radius: 7px;
+            padding: 12px;
+            font-family: inherit;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: #0a6ed1;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .secondary-btn {
+            background: white;
+            border: 1px solid #d0d5dd;
+            padding: 10px 18px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width: 1000px) {
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .sidebar {
+                width: 70px;
+            }
+
+            .sidebar .nav-item span {
+                display: none;
+            }
+
+            .main {
+                margin-left: 70px;
+            }
+        }
+
+        @media(max-width: 650px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 85px 15px 30px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <div class="logo-area">
+
+        <div class="logo">
+            V
+        </div>
+
+        <div class="app-title">
+            Vendor Onboarding
+        </div>
+
+    </div>
+
+    <div class="user-area">
+
+        <span>IBM User</span>
+
+        <div class="user-avatar">
+            U
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+    <div class="nav-title">
+        Workspace
+    </div>
+
+    <div class="nav-item active">
+        <span>▦</span>
+        <span>Dashboard</span>
+    </div>
+
+    <div class="nav-item">
+        <span>↑</span>
+        <span>Upload Vendors</span>
+    </div>
+
+    <div class="nav-item">
+        <span>✓</span>
+        <span>Approvals</span>
+    </div>
+
+    <div class="nav-item">
+        <span>◷</span>
+        <span>Audit Trail</span>
+    </div>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>Vendor Onboarding</h1>
+
+            <p>
+                Manage vendor uploads, validation and approvals
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= SUMMARY CARDS ================= -->
+
+    <div class="cards">
+
+        <div class="card">
+
+            <div class="card-top">
+
+                <span class="card-label">
+                    Total Vendors
+                </span>
+
+                <div class="card-icon">
+                    👥
+                </div>
+
+            </div>
+
+            <div
+                class="card-number"
+                id="totalVendors">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-top">
+
+                <span class="card-label">
+                    Pending Approval
+                </span>
+
+                <div class="card-icon">
+                    ⏳
+                </div>
+
+            </div>
+
+            <div
+                class="card-number"
+                id="pendingVendors">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-top">
+
+                <span class="card-label">
+                    Approved
+                </span>
+
+                <div class="card-icon">
+                    ✓
+                </div>
+
+            </div>
+
+            <div
+                class="card-number"
+                id="approvedVendors">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-top">
+
+                <span class="card-label">
+                    Validation Errors
+                </span>
+
+                <div class="card-icon">
+                    ⚠
+                </div>
+
+            </div>
+
+            <div
+                class="card-number"
+                id="errorCount">
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= UPLOAD ================= -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <h2>
+                Upload Vendor Master
+            </h2>
+
+        </div>
+
+        <div class="section-body">
+
+            <div class="upload-box">
+
+                <div class="upload-icon">
+                    ↑
+                </div>
+
+                <h3>
+                    Upload Vendor Excel File
+                </h3>
+
+                <p>
+                    Upload a .xlsx file containing vendor information
+                </p>
+
+                <label
+                    for="excelFile"
+                    class="file-label">
+
+                    Choose Excel File
+
+                </label>
+
+                <input
+                    id="excelFile"
+                    type="file"
+                    accept=".xlsx,.xls"
+                    onchange="showSelectedFile()">
+
+                <div
+                    class="selected-file"
+                    id="selectedFile">
+
+                    No file selected
+
+                </div>
+
+                <br>
+
+                <button
+                    class="primary-btn"
+                    id="uploadBtn"
+                    onclick="uploadExcel()"
+                    disabled>
+
+                    Upload Vendors
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= VENDORS ================= -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <h2>
+                Vendor Records
+            </h2>
+
+            <button
+                class="secondary-btn"
+                onclick="loadVendors()">
+
+                ↻ Refresh
+
+            </button>
+
+        </div>
+
+        <div class="section-body table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Vendor Code</th>
+                        <th>Vendor Name</th>
+                        <th>PAN</th>
+                        <th>GST</th>
+                        <th>Country</th>
+                        <th>Credit Limit</th>
+                        <th>Status</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="vendorTable">
+
+                    <tr>
+
+                        <td colspan="8"
+                            style="text-align:center;color:#98a2b3">
+
+                            No vendor records available
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ERRORS ================= -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <h2>
+                Validation Errors
+            </h2>
+
+        </div>
+
+        <div class="section-body table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Row No</th>
+                        <th>Vendor Code</th>
+                        <th>Error</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="errorTable">
+
+                    <tr>
+
+                        <td colspan="3"
+                            style="text-align:center;color:#98a2b3">
+
+                            No validation errors
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= REJECT MODAL ================= -->
+
+<div
+    class="modal"
+    id="rejectModal">
+
+    <div class="modal-content">
+
+        <h2>
+            Reject Vendor
+        </h2>
+
+        <p>
+            Please provide a reason for rejecting this vendor.
+        </p>
+
+        <textarea
+            id="rejectComment"
+            placeholder="Enter rejection comment...">
+        </textarea>
+
+        <div class="modal-actions">
+
+            <button
+                class="secondary-btn"
+                onclick="closeRejectModal()">
+
+                Cancel
+
+            </button>
+
+            <button
+                class="primary-btn"
+                onclick="confirmReject()">
+
+                Reject Vendor
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   FILE SELECTION
+===================================================== */
+
+function showSelectedFile() {
+
+    const input =
+        document.getElementById("excelFile");
+
+    const display =
+        document.getElementById("selectedFile");
+
+    const button =
+        document.getElementById("uploadBtn");
+
+    if (input.files.length > 0) {
+
+        display.innerHTML =
+            "📄 " + input.files[0].name;
+
+        button.disabled = false;
+
+    } else {
+
+        display.innerHTML =
+            "No file selected";
+
+        button.disabled = true;
+    }
+}
+
+
+/* =====================================================
+   UPLOAD EXCEL
+===================================================== */
+
+async function uploadExcel() {
+
+    const input =
+        document.getElementById("excelFile");
+
+    if (!input.files.length) {
+
+        alert("Please select an Excel file.");
+
+        return;
+    }
+
+    const file = input.files[0];
+
+    const reader = new FileReader();
+
+    reader.onload = async function () {
+
+        const base64 =
+            reader.result.split(",")[1];
+
+        try {
+
+            const response =
+                await fetch(
+                    "/odata/v4/vendor/uploadVendors",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+
+                            fileName: file.name,
+
+                            fileData: base64
+
+                        })
+                    }
+                );
+
+            const result =
+                await response.json();
+
+            if (!response.ok) {
+
+                alert(
+                    result.error?.message ||
+                    "Upload failed."
+                );
+
+                return;
+            }
+
+            updateSummary(result);
+
+            displayErrors(
+                result.errors || []
+            );
+
+            loadVendors();
+
+            alert(
+                "Vendor upload completed successfully."
+            );
+
+        } catch (error) {
+
+            alert(
+                "Upload failed: " +
+                error.message
+            );
+        }
+    };
+
+    reader.readAsDataURL(file);
+}
+
+
+/* =====================================================
+   UPDATE SUMMARY
+===================================================== */
+
+function updateSummary(result) {
+
+    document.getElementById(
+        "totalVendors"
+    ).innerText =
+        result.totalRecords || 0;
+
+    document.getElementById(
+        "errorCount"
+    ).innerText =
+        result.failedRecords || 0;
+}
+
+
+/* =====================================================
+   DISPLAY ERRORS
+===================================================== */
+
+function displayErrors(errors) {
+
+    const table =
+        document.getElementById("errorTable");
+
+    if (!errors.length) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="3"
+                    style="text-align:center;color:#16803c">
+
+                    ✓ No validation errors
+
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+    table.innerHTML = errors.map(error => `
+
+        <tr class="error-row">
+
+            <td>
+                ${error.rowNo}
+            </td>
+
+            <td>
+                ${error.vendorCode || "-"}
+            </td>
+
+            <td>
+                <span class="error-badge">
+                    ${error.error}
+                </span>
+            </td>
+
+        </tr>
+
+    `).join("");
+}
+
+
+/* =====================================================
+   LOAD VENDORS
+===================================================== */
+
+async function loadVendors() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/odata/v4/vendor/VendorStaging"
+            );
+
+        const data =
+            await response.json();
+
+        const vendors =
+            data.value || [];
+
+        const table =
+            document.getElementById(
+                "vendorTable"
+            );
+
+        document.getElementById(
+            "totalVendors"
+        ).innerText = vendors.length;
+
+        const pending =
+            vendors.filter(
+                v => v.status === "SUBMITTED"
+            ).length;
+
+        const approved =
+            vendors.filter(
+                v => v.status === "APPROVED"
+            ).length;
+
+        document.getElementById(
+            "pendingVendors"
+        ).innerText = pending;
+
+        document.getElementById(
+            "approvedVendors"
+        ).innerText = approved;
+
+
+        if (!vendors.length) {
+
+            table.innerHTML = `
+                <tr>
+                    <td colspan="8"
+                        style="text-align:center;color:#98a2b3">
+
+                        No vendor records available
+
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+
+        table.innerHTML =
+            vendors.map(vendor => `
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            ${vendor.vendorCode}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${vendor.vendorName}
+                    </td>
+
+                    <td>
+                        ${vendor.panNumber}
+                    </td>
+
+                    <td>
+                        ${vendor.gstNumber}
+                    </td>
+
+                    <td>
+                        ${vendor.country}
+                    </td>
+
+                    <td>
+                        ₹ ${Number(
+                            vendor.creditLimit || 0
+                        ).toLocaleString("en-IN")}
+                    </td>
+
+                    <td>
+                        <span class="status
+                            ${getStatusClass(
+                                vendor.status
+                            )}">
+
+                            ${vendor.status}
+
+                        </span>
+                    </td>
+
+                    <td>
+
+                        ${
+                            vendor.status === "SUBMITTED"
+                            ?
+
+                            `
+                            <button
+                                class="action-btn approve-btn"
+                                onclick="approveVendor('${vendor.ID}')">
+
+                                ✓ Approve
+
+                            </button>
+
+                            <button
+                                class="action-btn reject-btn"
+                                onclick="openRejectModal('${vendor.ID}')">
+
+                                ✕ Reject
+
+                            </button>
+                            `
+
+                            :
+
+                            "-"
+                        }
+
+                    </td>
+
+                </tr>
+
+            `).join("");
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function getStatusClass(status) {
+
+    if (status === "APPROVED")
+        return "approved";
+
+    if (status === "REJECTED")
+        return "rejected";
+
+    return "submitted";
+}
+
+
+/* =====================================================
+   APPROVE
+===================================================== */
+
+async function approveVendor(id) {
+
+    if (!confirm(
+        "Are you sure you want to approve this vendor?"
+    )) {
+        return;
+    }
+
+    try {
+
+        const response =
+            await fetch(
+                "/odata/v4/vendor/approveVendor",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        vendorID: id,
+
+                        comment:
+                            "Approved from Vendor Onboarding UI"
+
+                    })
+                }
+            );
+
+        const result =
+            await response.json();
+
+        alert(
+            result.value ||
+            "Vendor approved successfully."
+        );
+
+        loadVendors();
+
+    } catch (error) {
+
+        alert(
+            "Approval failed: " +
+            error.message
+        );
+    }
+}
+
+
+/* =====================================================
+   REJECT
+===================================================== */
+
+let selectedVendorID = null;
+
+
+function openRejectModal(id) {
+
+    selectedVendorID = id;
+
+    document.getElementById(
+        "rejectComment"
+    ).value = "";
+
+    document.getElementById(
+        "rejectModal"
+    ).style.display = "flex";
+}
+
+
+function closeRejectModal() {
+
+    document.getElementById(
+        "rejectModal"
+    ).style.display = "none";
+
+    selectedVendorID = null;
+}
+
+
+async function confirmReject() {
+
+    const comment =
+        document.getElementById(
+            "rejectComment"
+        ).value.trim();
+
+    if (!comment) {
+
+        alert(
+            "Rejection comment is mandatory."
+        );
+
+        return;
+    }
+
+    try {
+
+        const response =
+            await fetch(
+                "/odata/v4/vendor/rejectVendor",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        vendorID:
+                            selectedVendorID,
+
+                        comment: comment
+
+                    })
+                }
+            );
+
+        const result =
+            await response.json();
+
+        closeRejectModal();
+
+        alert(
+            result.value ||
+            "Vendor rejected successfully."
+        );
+
+        loadVendors();
+
+    } catch (error) {
+
+        alert(
+            "Rejection failed: " +
+            error.message
+        );
+    }
+}
+
+
+/* =====================================================
+   INITIAL LOAD
+===================================================== */
+
+window.onload = function () {
+
+    loadVendors();
+
+};
+
+</script>
+
+</body>
+</html>
