@@ -1,0 +1,120 @@
+{
+    "_version": "1.65.0",
+
+    "sap.app": {
+        "id": "prtracker",
+        "type": "application",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "PR Bottleneck Tracker",
+
+        "dataSources": {
+            "mainService": {
+                "uri": "/odata/v4/pr-tracker/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0"
+                }
+            }
+        }
+    },
+
+    "sap.ui": {
+        "technology": "UI5",
+
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+
+    "sap.ui5": {
+        "rootView": {
+            "viewName": "prtracker.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "app"
+        },
+
+        "dependencies": {
+            "minUI5Version": "1.120.0",
+
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {}
+            }
+        },
+
+        "models": {
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+
+                "settings": {
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            }
+        },
+
+        "routing": {
+    "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "prtracker.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "async": true
+    },
+
+    "routes": [
+        {
+            "pattern": "",
+            "name": "home",
+            "target": "home"
+        },
+        {
+            "pattern": "aging",
+            "name": "aging",
+            "target": "aging"
+        },
+        {
+            "pattern": "delayed",
+            "name": "delayed",
+            "target": "delayed"
+        },
+        {
+            "pattern": "bottleneck",
+            "name": "bottleneck",
+            "target": "bottleneck"
+        },
+        {
+            "pattern": "sla-dashboard",
+            "name": "slaDashboard",
+            "target": "slaDashboard"
+        }
+    ],
+
+    "targets": {
+        "home": {
+            "viewName": "Home"
+        },
+        "aging": {
+            "viewName": "Aging"
+        },
+        "delayed": {
+            "viewName": "Delayed"
+        },
+        "bottleneck": {
+            "viewName": "Bottleneck"
+        },
+        "slaDashboard": {
+            "viewName": "SLADashboard"
+        }
+    }
+}
+    }
+}

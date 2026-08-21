@@ -1,0 +1,157 @@
+<mvc:View
+    controllerName="prtracker.controller.Delayed"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+
+    <Page
+        title="Delayed Approvals">
+
+        <content>
+
+            <VBox class="sapUiSmallMargin">
+
+                <Toolbar>
+
+                    <Title
+                        text="Delayed Purchase Requisitions"
+                        level="H2"/>
+
+                    <ToolbarSpacer/>
+
+                    <Button
+                        text="Refresh"
+                        icon="sap-icon://refresh"
+                        press=".onRefresh"/>
+
+                </Toolbar>
+
+
+                <Table
+                    id="delayedTable"
+                    items="{
+                        path: '/DelayedApprovals'
+                    }"
+                    growing="true"
+                    growingThreshold="20"
+                    sticky="ColumnHeaders,HeaderToolbar"
+                    noDataText="No delayed approvals found">
+
+                    <headerToolbar>
+
+                        <Toolbar>
+
+                            <Title
+                                text="Delayed Approval Details"/>
+
+                            <ToolbarSpacer/>
+
+                            <SearchField
+                                width="250px"
+                                placeholder="Search PR or department..."
+                                liveChange=".onSearch"/>
+
+                        </Toolbar>
+
+                    </headerToolbar>
+
+
+                    <columns>
+
+                        <Column>
+                            <Text text="PR Number"/>
+                        </Column>
+
+                        <Column>
+                            <Text text="Department"/>
+                        </Column>
+
+                        <Column>
+                            <Text text="Created"/>
+                        </Column>
+
+                        <Column>
+                            <Text text="Approved"/>
+                        </Column>
+
+                        <Column hAlign="Center">
+                            <Text text="SLA"/>
+                        </Column>
+
+                        <Column hAlign="Center">
+                            <Text text="Approval Cycle"/>
+                        </Column>
+
+                        <Column hAlign="Center">
+                            <Text text="Delay"/>
+                        </Column>
+
+                        <Column hAlign="Center">
+                            <Text text="Delay %"/>
+                        </Column>
+
+                        <Column>
+                            <Text text="Status"/>
+                        </Column>
+
+                    </columns>
+
+
+                    <items>
+
+                        <ColumnListItem>
+
+                            <cells>
+
+                                <ObjectIdentifier
+                                    title="{PRNumber}"
+                                    text="{PRItem}"/>
+
+                                <Text
+                                    text="{departmentName}"/>
+
+                                <Text
+                                    text="{createdDate}"/>
+
+                                <Text
+                                    text="{approvalDate}"/>
+
+                                <ObjectNumber
+                                    number="{slaDays}"
+                                    unit="Days"/>
+
+                                <ObjectNumber
+                                    number="{approvalCycleDays}"
+                                    unit="Days"/>
+
+                                <ObjectNumber
+                                    number="{delayDays}"
+                                    unit="Days"
+                                    state="Error"/>
+
+                                <ObjectNumber
+                                    number="{delayPercentage}"
+                                    unit="%"
+                                    state="Error"/>
+
+                                <ObjectStatus
+                                    text="{delayStatus}"
+                                    state="{
+                                        path: 'delayStatus',
+                                        formatter: '.formatter.delayState'
+                                    }"/>
+
+                            </cells>
+
+                        </ColumnListItem>
+
+                    </items>
+
+                </Table>
+
+            </VBox>
+
+        </content>
+
+    </Page>
+
+</mvc:View>

@@ -1,0 +1,1072 @@
+/* =========================================================
+   PR BOTTLENECK TRACKER - MODERN UI STYLES
+   ========================================================= */
+
+
+/* =========================================================
+   GLOBAL STYLES
+   ========================================================= */
+
+.prHomePage,
+.agingReportPage {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+}
+
+
+/* =========================================================
+   HOME PAGE - HERO SECTION
+   ========================================================= */
+
+.heroSection { 
+    background: linear-gradient(
+        135deg,
+        #0a6ed1 0%,
+        #0854a0 100%
+    );
+
+    border-radius: 16px;
+    padding: 40px;
+    min-height: 180px;
+
+    box-shadow: 
+        0 8px 24px rgba(10, 110, 209, 0.25),
+        0 2px 8px rgba(0, 0, 0, 0.08);
+
+    position: relative;
+    overflow: hidden;
+}
+
+.heroSection::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.heroTitle {
+    color: white !important;
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.heroSubtitle {
+    color: rgba(255, 255, 255, 0.95) !important;
+    font-size: 1.1rem !important;
+    max-width: 800px;
+    margin-top: 12px;
+    line-height: 1.6;
+}
+
+.heroStatusRow .sapMObjStatus {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 8px 16px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+
+/* =========================================================
+   SECTION TITLES
+   ========================================================= */
+
+.sectionTitle {
+    font-weight: 700 !important;
+    color: #1d2d3e !important;
+    font-size: 1.75rem !important;
+    margin-bottom: 16px !important;
+}
+
+
+/* =========================================================
+   KPI TILES - MODERN DESIGN
+   ========================================================= */
+
+.kpiContainer {
+    gap: 20px;
+}
+
+.kpiTile {
+    width: 23%;
+    min-width: 240px;
+    border-radius: 16px !important;
+    background: white !important;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.08),
+        0 1px 3px rgba(0, 0, 0, 0.06);
+
+    border: 1px solid rgba(0, 0, 0, 0.04);
+
+    transition:
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    overflow: hidden;
+    position: relative;
+}
+
+.kpiTile::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #0a6ed1, #0854a0);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+.slaDashboardCard {
+    border-top-color: #0a6ed1;
+}
+
+.slaDashboardCard .monitorIcon {
+    color: #0a6ed1;
+}
+
+}
+
+.kpiTile:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.12),
+        0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.kpiTile:hover::before {
+    opacity: 1;
+}
+
+.kpiTile .sapMTileContent {
+    padding: 24px !important;
+}
+
+.kpiTile .sapMNC {
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   MONITORING CARDS - ENHANCED
+   ========================================================= */
+
+.monitoringContainer {
+    gap: 24px;
+}
+
+.monitorCard {
+    min-width: 300px;
+    padding: 32px;
+
+    border-radius: 16px;
+
+    background: white;
+
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.08),
+        0 2px 8px rgba(0, 0, 0, 0.04);
+
+    border-top: 5px solid transparent;
+
+    transition:
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    position: relative;
+    overflow: hidden;
+}
+
+.monitorCard::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(10, 110, 209, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.monitorCard:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 12px 32px rgba(0, 0, 0, 0.12),
+        0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.monitorCard .sapMBtn {
+    margin-top: 20px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+
+/* CARD ACCENTS */
+
+.agingCard {
+    border-top-color: #e9730c;
+}
+
+.delayedCard {
+    border-top-color: #bb0000;
+}
+
+.bottleneckCard {
+    border-top-color: #0a6ed1;
+}
+
+
+/* ICONS */
+
+.monitorIcon {
+    color: #0a6ed1;
+    filter: drop-shadow(0 2px 4px rgba(10, 110, 209, 0.2));
+}
+
+.agingCard .monitorIcon {
+    color: #e9730c;
+    filter: drop-shadow(0 2px 4px rgba(233, 115, 12, 0.2));
+}
+
+.delayedCard .monitorIcon {
+    color: #bb0000;
+    filter: drop-shadow(0 2px 4px rgba(187, 0, 0, 0.2));
+}
+
+.bottleneckCard .monitorIcon {
+    color: #0a6ed1;
+    filter: drop-shadow(0 2px 4px rgba(10, 110, 209, 0.2));
+}
+
+
+/* =========================================================
+   INFORMATION SECTION
+   ========================================================= */
+
+.infoSection {
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 28px;
+
+    box-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.06),
+        0 1px 4px rgba(0, 0, 0, 0.04);
+
+    border-left: 4px solid #0a6ed1;
+}
+
+.infoText {
+    color: #556b82 !important;
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+
+/* =========================================================
+   AGING PAGE - MODERN HEADER
+   ========================================================= */
+
+.modernHeader {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.08),
+        0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.pageTitle {
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    color: #1d2d3e !important;
+    margin-bottom: 8px !important;
+}
+
+.pageSubtitle {
+    color: #556b82 !important;
+    font-size: 1rem !important;
+}
+
+.refreshButton {
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    padding: 0 24px !important;
+}
+
+
+/* =========================================================
+   AI INSIGHTS CARD
+   ========================================================= */
+
+.aiInsightsCard {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fb 100%);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow:
+        0 4px 16px rgba(10, 110, 209, 0.12),
+        0 2px 8px rgba(0, 0, 0, 0.04);
+    border: 2px solid rgba(10, 110, 209, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.aiInsightsCard::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(10, 110, 209, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.aiInsightsText {
+    color: #556b82 !important;
+    line-height: 1.7;
+    font-size: 0.95rem;
+    max-width: 900px;
+}
+
+
+/* =========================================================
+   TABLE CARD - MODERN DESIGN
+   ========================================================= */
+
+.tableCard {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.08),
+        0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.tableToolbar {
+    background: linear-gradient(135deg, #f8f9fb 0%, #ffffff 100%) !important;
+    border-bottom: 2px solid #e8ecf1 !important;
+    padding: 20px 24px !important;
+    min-height: 70px !important;
+}
+
+.tableToolbar .sapMTitle {
+    font-weight: 700 !important;
+    color: #1d2d3e !important;
+    font-size: 1.25rem !important;
+}
+
+.modernSearch {
+    border-radius: 8px !important;
+}
+
+.modernSearch .sapMInputBaseInner {
+    border-radius: 8px !important;
+    border: 2px solid #e8ecf1 !important;
+    transition: all 0.3s ease;
+}
+
+.modernSearch .sapMInputBaseInner:focus {
+    border-color: #0a6ed1 !important;
+    box-shadow: 0 0 0 3px rgba(10, 110, 209, 0.1);
+}
+
+
+/* =========================================================
+   TABLE STYLING
+   ========================================================= */
+
+.modernTable {
+    border: none !important;
+}
+
+.modernTable .sapMListTblHeaderCell {
+    background: #f8f9fb !important;
+    border-bottom: 2px solid #e8ecf1 !important;
+    padding: 16px 12px !important;
+}
+
+.columnHeader {
+    font-weight: 700 !important;
+    color: #1d2d3e !important;
+    font-size: 0.875rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.aiColumnHeader {
+    color: #0a6ed1 !important;
+}
+
+.tableRow {
+    transition: background-color 0.2s ease;
+}
+
+.tableRow:hover {
+    background-color: #f8f9fb !important;
+}
+
+.modernTable .sapMListTblCell {
+    padding: 16px 12px !important;
+    border-bottom: 1px solid #f0f2f5 !important;
+}
+
+.cellText {
+    color: #556b82 !important;
+    font-size: 0.875rem !important;
+}
+
+.prIdentifier .sapMObjectIdentifierTitle {
+    font-weight: 600 !important;
+    color: #0a6ed1 !important;
+}
+
+
+/* =========================================================
+   AI PREDICTION VISUAL INDICATORS
+   ========================================================= */
+
+.aiPredictionCell {
+    min-width: 180px;
+    padding: 8px;
+}
+
+.riskSlider {
+    margin-top: 8px;
+}
+
+.riskSlider .sapMPI {
+    height: 12px !important;
+    border-radius: 6px !important;
+}
+
+.riskSlider .sapMPIBar {
+    border-radius: 6px !important;
+    transition: all 0.3s ease;
+}
+
+.riskSlider .sapMPIBarError .sapMPIBar {
+    background: linear-gradient(90deg, #BB0000 0%, #FF4444 100%) !important;
+    box-shadow: 0 2px 8px rgba(187, 0, 0, 0.3);
+}
+
+.riskSlider .sapMPIBarWarning .sapMPIBar {
+    background: linear-gradient(90deg, #E9730C 0%, #FFA726 100%) !important;
+    box-shadow: 0 2px 8px rgba(233, 115, 12, 0.3);
+}
+
+.riskSlider .sapMPIBarInformation .sapMPIBar {
+    background: linear-gradient(90deg, #0A6ED1 0%, #42A5F5 100%) !important;
+    box-shadow: 0 2px 8px rgba(10, 110, 209, 0.3);
+}
+
+.riskSlider .sapMPIBarSuccess .sapMPIBar {
+    background: linear-gradient(90deg, #107E3E 0%, #4CAF50 100%) !important;
+    box-shadow: 0 2px 8px rgba(16, 126, 62, 0.3);
+}
+
+.riskSlider .sapMPIValueInner {
+    font-weight: 700 !important;
+    font-size: 0.75rem !important;
+}
+
+.riskPercentageCell {
+    padding: 8px;
+}
+
+.riskPercentageNumber {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   STATUS BADGES - ENHANCED
+   ========================================================= */
+
+.statusBadge {
+    border-radius: 6px !important;
+    padding: 4px 12px !important;
+    font-weight: 600 !important;
+    font-size: 0.8rem !important;
+}
+
+.aiPredictionBadge {
+    border-radius: 8px !important;
+    padding: 6px 14px !important;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recommendationBadge {
+    border-radius: 6px !important;
+    padding: 6px 12px !important;
+    font-weight: 600 !important;
+    font-size: 0.8rem !important;
+}
+
+.riskPercentage {
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+}
+
+.slaNumber {
+    color: #556b82 !important;
+}
+
+
+/* =========================================================
+   OBJECT STATUS COLORS - ENHANCED
+   ========================================================= */
+
+.sapMObjectStatus.sapMObjectStatusSuccess {
+    background-color: rgba(16, 126, 62, 0.1) !important;
+    color: #107e3e !important;
+}
+
+.sapMObjectStatus.sapMObjectStatusWarning {
+    background-color: rgba(233, 115, 12, 0.1) !important;
+    color: #e9730c !important;
+}
+
+.sapMObjectStatus.sapMObjectStatusError {
+    background-color: rgba(187, 0, 0, 0.1) !important;
+    color: #bb0000 !important;
+}
+
+.sapMObjectStatus.sapMObjectStatusInformation {
+    background-color: rgba(10, 110, 209, 0.1) !important;
+    color: #0a6ed1 !important;
+}
+
+
+/* =========================================================
+   OBJECT NUMBER COLORS
+   ========================================================= */
+
+.sapMObjectNumber.sapMObjectNumberSuccess {
+    color: #107e3e !important;
+}
+
+.sapMObjectNumber.sapMObjectNumberWarning {
+    color: #e9730c !important;
+}
+
+.sapMObjectNumber.sapMObjectNumberError {
+    color: #bb0000 !important;
+}
+
+.sapMObjectNumber.sapMObjectNumberInformation {
+    color: #0a6ed1 !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+@media (max-width: 1024px) {
+    .kpiTile {
+        width: 48%;
+        min-width: 200px;
+    }
+
+    .monitorCard {
+        width: 48%;
+        min-width: 280px;
+    }
+
+    .heroTitle {
+        font-size: 2rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .kpiTile {
+        width: 100%;
+    }
+
+    .monitorCard {
+        width: 100%;
+    }
+
+    .heroSection {
+        padding: 28px;
+    }
+
+    .heroTitle {
+        font-size: 1.75rem !important;
+    }
+
+    .modernHeader {
+        padding: 24px;
+    }
+
+    .aiInsightsCard {
+        padding: 24px;
+    }
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.kpiTile,
+.monitorCard,
+.tableCard,
+.aiInsightsCard {
+    animation: fadeIn 0.5s ease-out;
+}
+
+
+/* =========================================================
+   SCROLLBAR STYLING
+   ========================================================= */
+
+.modernTable::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.modernTable::-webkit-scrollbar-track {
+    background: #f0f2f5;
+    border-radius: 4px;
+}
+
+.modernTable::-webkit-scrollbar-thumb {
+    background: #c5cdd5;
+    border-radius: 4px;
+}
+
+.modernTable::-webkit-scrollbar-thumb:hover {
+    background: #a8b3bd;
+}
+
+/* Made with Bob */
+
+/* =========================================================
+   SLA DASHBOARD STYLES
+   ========================================================= */
+
+.slaDashboardPage {
+    background: linear-gradient(135deg, #E8EAF6 0%, #F3E5F5 100%);
+}
+
+.slaDashboardContainer {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+
+/* =================================================
+   MAIN DASHBOARD CARD
+   ================================================= */
+
+.slaDashboardCard {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.08),
+        0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.dashboardHeader {
+    gap: 40px;
+}
+
+
+/* SLA Health Section */
+
+.slaHealthSection {
+    flex: 1;
+    max-width: 400px;
+}
+
+.slaHealthTitle {
+    font-size: 1.75rem !important;
+    font-weight: 700 !important;
+    color: #1d2d3e !important;
+}
+
+.slaHealthSubtitle {
+    color: #556b82 !important;
+    font-size: 0.95rem !important;
+}
+
+
+/* Circular Progress Indicator */
+
+.circularProgressContainer {
+    margin-top: 24px;
+}
+
+.circularProgress {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: conic-gradient(
+        #0A6ED1 0%,
+        #0A6ED1 var(--progress, 87%),
+        #E8ECF1 var(--progress, 87%),
+        #E8ECF1 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 8px 24px rgba(10, 110, 209, 0.2);
+}
+
+.circularProgress::before {
+    content: '';
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    background: white;
+    border-radius: 50%;
+}
+
+.circularProgressText {
+    font-size: 3rem !important;
+    font-weight: 700 !important;
+    color: #0A6ED1 !important;
+    z-index: 1;
+    line-height: 1 !important;
+}
+
+.circularProgressLabel {
+    font-size: 0.75rem !important;
+    color: #556b82 !important;
+    z-index: 1;
+    margin-top: 4px;
+}
+
+.activeTicketsText {
+    font-size: 0.95rem !important;
+    color: #1d2d3e !important;
+    font-weight: 600 !important;
+}
+
+.viewDashboardButton {
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    padding: 0 24px !important;
+}
+
+
+/* Overview Section */
+
+.overviewSection {
+    flex: 2;
+}
+
+.overviewTitle {
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    color: #1d2d3e !important;
+}
+
+.overviewSubtitle {
+    color: #556b82 !important;
+    font-size: 0.9rem !important;
+}
+
+
+/* Quick Metrics Grid */
+
+.quickMetricsGrid {
+    gap: 16px;
+}
+
+.quickMetricCard {
+    background: linear-gradient(135deg, #F8F9FB 0%, #FFFFFF 100%);
+    border-radius: 12px;
+    padding: 20px;
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.quickMetricCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.highPriorityCard {
+    border-left-color: #E9730C;
+}
+
+.newIncidentsCard {
+    border-left-color: #0A6ED1;
+}
+
+.escalationsCard {
+    border-left-color: #BB0000;
+}
+
+.complianceCard {
+    border-left-color: #107E3E;
+}
+
+.metricLabel {
+    font-size: 0.85rem !important;
+    color: #556b82 !important;
+    font-weight: 600 !important;
+}
+
+.metricValue {
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    color: #1d2d3e !important;
+    line-height: 1 !important;
+}
+
+.metricUnit {
+    font-size: 0.9rem !important;
+    color: #556b82 !important;
+    margin-left: 4px;
+    margin-bottom: 4px;
+}
+
+.metricAction {
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    margin-top: 8px;
+}
+
+
+/* Critical Alert Banner */
+
+.criticalAlertBanner {
+    background: linear-gradient(135deg, #BB0000 0%, #D32F2F 100%);
+    border-radius: 12px;
+    padding: 20px 24px;
+    box-shadow: 0 4px 16px rgba(187, 0, 0, 0.3);
+}
+
+.criticalAlertText {
+    color: white !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+}
+
+.criticalAlertButton {
+    background: white !important;
+    color: #BB0000 !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+}
+
+
+/* Bottom Metrics Row */
+
+.bottomMetricsRow {
+    padding-top: 24px;
+    border-top: 2px solid #E8ECF1;
+    gap: 32px;
+}
+
+.bottomMetric {
+    flex: 1;
+}
+
+.bottomMetricLabel {
+    font-size: 0.85rem !important;
+    color: #556b82 !important;
+    font-weight: 600 !important;
+}
+
+.bottomMetricValue {
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    color: #1d2d3e !important;
+    margin-top: 4px;
+}
+
+.bottomMetricWarning {
+    color: #E9730C !important;
+}
+
+.bottomMetricError {
+    color: #BB0000 !important;
+}
+
+.bottomMetricSuccess {
+    color: #107E3E !important;
+}
+
+
+/* =================================================
+   PERFORMANCE & RISK SECTION
+   ================================================= */
+
+.performanceRiskSection {
+    gap: 24px;
+}
+
+.performanceCard,
+.riskProfileCard {
+    flex: 1;
+    min-width: 400px;
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.08),
+        0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.cardTitle {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    color: #1d2d3e !important;
+}
+
+.cardSubtitle {
+    font-size: 0.9rem !important;
+    color: #556b82 !important;
+}
+
+
+/* Performance Chart */
+
+.performanceChart {
+    height: 200px;
+    background: linear-gradient(135deg, #F8F9FB 0%, #FFFFFF 100%);
+    border-radius: 12px;
+    margin-top: 16px;
+    border: 2px dashed #E8ECF1;
+}
+
+.chartLabel {
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    color: #1d2d3e !important;
+}
+
+.chartSubLabel {
+    font-size: 0.85rem !important;
+    color: #556b82 !important;
+}
+
+
+/* Risk Gauge */
+
+.riskGauge {
+    margin-top: 16px;
+    padding: 24px;
+    background: linear-gradient(135deg, #F8F9FB 0%, #FFFFFF 100%);
+    border-radius: 12px;
+}
+
+.riskDistribution {
+    padding: 16px;
+}
+
+.riskItem {
+    padding: 8px 0;
+}
+
+.riskLabel {
+    font-size: 0.95rem !important;
+    color: #556b82 !important;
+    font-weight: 600 !important;
+    flex: 1;
+}
+
+.riskValue {
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    min-width: 60px;
+    text-align: right;
+}
+
+.riskCritical {
+    color: #BB0000 !important;
+}
+
+.riskHigh {
+    color: #E9730C !important;
+}
+
+.riskMedium {
+    color: #0A6ED1 !important;
+}
+
+.riskLow {
+    color: #107E3E !important;
+}
+
+
+/* =================================================
+   RESPONSIVE DESIGN
+   ================================================= */
+
+@media (max-width: 1024px) {
+    .dashboardHeader {
+        flex-direction: column;
+    }
+
+    .slaHealthSection,
+    .overviewSection {
+        max-width: 100%;
+    }
+
+    .performanceCard,
+    .riskProfileCard {
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .slaDashboardCard {
+        padding: 24px;
+    }
+
+    .circularProgress {
+        width: 150px;
+        height: 150px;
+    }
+
+    .circularProgress::before {
+        width: 110px;
+        height: 110px;
+    }
+
+    .circularProgressText {
+        font-size: 2.5rem !important;
+    }
+
+    .bottomMetricsRow {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .bottomMetric {
+        min-width: 45%;
+    }
+}
+

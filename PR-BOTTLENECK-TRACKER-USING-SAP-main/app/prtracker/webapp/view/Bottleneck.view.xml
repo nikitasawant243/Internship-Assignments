@@ -1,0 +1,146 @@
+<mvc:View
+    controllerName="prtracker.controller.Bottleneck"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+
+    <Page
+        title="Department Bottlenecks">
+
+        <content>
+
+            <VBox class="sapUiSmallMargin">
+
+                <Toolbar>
+
+                    <Title
+                        text="Department Bottleneck Analysis"
+                        level="H2"/>
+
+                    <ToolbarSpacer/>
+
+                    <Button
+                        text="Refresh"
+                        icon="sap-icon://refresh"
+                        press=".onRefresh"/>
+
+                </Toolbar>
+
+
+                <Table
+                    id="bottleneckTable"
+                    items="{
+                        path: '/DepartmentBottlenecks'
+                    }"
+                    growing="true"
+                    sticky="ColumnHeaders,HeaderToolbar"
+                    noDataText="No department data found">
+
+                    <headerToolbar>
+
+                        <Toolbar>
+
+                            <Title
+                                text="Department Performance"/>
+
+                        </Toolbar>
+
+                    </headerToolbar>
+
+
+                    <columns>
+
+                        <Column>
+                            <Text text="Department"/>
+                        </Column>
+
+                        <Column hAlign="Center">
+                            <Text text="Total PRs"/>
+                        </Column>
+
+                        <Column hAlign="Center">
+                            <Text text="Pending"/>
+                        </Column>
+
+                        <Column hAlign="Center">
+                            <Text text="Approved"/>
+                        </Column>
+
+                        <Column hAlign="Center">
+                            <Text text="Delayed"/>
+                        </Column>
+
+                        <Column hAlign="Center">
+                            <Text text="Avg Approval"/>
+                        </Column>
+
+                        <Column hAlign="Center">
+                            <Text text="Bottleneck %"/>
+                        </Column>
+
+                        <Column>
+                            <Text text="Level"/>
+                        </Column>
+
+                    </columns>
+
+
+                    <items>
+
+                        <ColumnListItem>
+
+                            <cells>
+
+                                <ObjectIdentifier
+                                    title="{departmentName}"
+                                    text="{departmentCode}"/>
+
+                                <ObjectNumber
+                                    number="{totalPRs}"/>
+
+                                <ObjectNumber
+                                    number="{pendingPRs}"/>
+
+                                <ObjectNumber
+                                    number="{approvedPRs}"/>
+
+                                <ObjectNumber
+                                    number="{delayedPRs}"
+                                    state="{
+                                        path: 'delayedPRs',
+                                        formatter: '.formatter.delayCountState'
+                                    }"/>
+
+                                <ObjectNumber
+                                    number="{averageApprovalDays}"
+                                    unit="Days"/>
+
+                                <ObjectNumber
+                                    number="{bottleneckPercentage}"
+                                    unit="%"
+                                    state="{
+                                        path: 'bottleneckLevel',
+                                        formatter: '.formatter.bottleneckState'
+                                    }"/>
+
+                                <ObjectStatus
+                                    text="{bottleneckLevel}"
+                                    state="{
+                                        path: 'bottleneckLevel',
+                                        formatter: '.formatter.bottleneckState'
+                                    }"/>
+
+                            </cells>
+
+                        </ColumnListItem>
+
+                    </items>
+
+                </Table>
+
+            </VBox>
+
+        </content>
+
+    </Page>
+
+</mvc:View>

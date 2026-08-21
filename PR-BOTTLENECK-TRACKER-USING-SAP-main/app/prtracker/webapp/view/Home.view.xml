@@ -1,0 +1,543 @@
+<mvc:View
+    controllerName="prtracker.controller.Home"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Page
+        id="homePage"
+        showHeader="true"
+        class="prHomePage">
+
+        <!-- HEADER -->
+        <customHeader>
+            <Bar class="modernHeaderBar">
+
+                <contentLeft>
+                    <Title
+                        text="PR Bottleneck Tracker"
+                        level="H2"
+                        class="headerTitle"/>
+                </contentLeft>
+
+                <contentRight>
+                    <Button
+                        icon="sap-icon://refresh"
+                        type="Transparent"
+                        tooltip="Refresh Dashboard"
+                        press=".onRefresh"
+                        class="headerButton"/>
+                </contentRight>
+
+            </Bar>
+        </customHeader>
+
+
+        <content>
+
+            <VBox
+                width="100%"
+                class="sapUiResponsiveContentPadding">
+
+
+                <!-- =================================================
+                     HERO SECTION
+                     ================================================= -->
+
+                <VBox
+                    class="heroSection sapUiMediumMarginBottom">
+
+                    <Title
+                        text="Purchase Requisition Monitoring"
+                        level="H1"
+                        class="heroTitle"/>
+
+                    <Text
+                        text="AI-powered procurement intelligence for real-time PR aging, delayed approvals, and bottleneck detection."
+                        class="heroSubtitle"/>
+
+                    <HBox
+                        class="heroStatusRow sapUiMediumMarginTop"
+                        alignItems="Center">
+
+                        <ObjectStatus
+                            text="Procurement Monitoring"
+                            icon="sap-icon://activity-2"
+                            state="Information"
+                            class="sapUiSmallMarginEnd"/>
+
+                        <ObjectStatus
+                            text="Live OData Data"
+                            icon="sap-icon://connected"
+                            state="Success"
+                            class="sapUiSmallMarginEnd"/>
+
+                        <ObjectStatus
+                            text="AI Predictions Active"
+                            icon="sap-icon://machine-learning"
+                            state="Success"/>
+
+                    </HBox>
+
+                </VBox>
+
+
+                <!-- =================================================
+                     MAIN KPI SECTION
+                     ================================================= -->
+
+                <Title
+                    text="Dashboard Overview"
+                    level="H2"
+                    class="sectionTitle"/>
+
+
+                <HBox
+                    id="kpiContainer"
+                    width="100%"
+                    wrap="Wrap"
+                    class="kpiContainer sapUiSmallMarginBottom">
+
+
+                    <!-- TOTAL PRs -->
+
+                    <GenericTile
+                        class="kpiTile"
+                        header="Total PRs"
+                        subheader="All Purchase Requisitions">
+
+                        <TileContent>
+
+                            <NumericContent
+                                value="{dashboard>/totalPRs}"
+                                scale="PRs"
+                                valueColor="Good"
+                                icon="sap-icon://document-text"
+                                animateTextChange="true"/>
+
+                        </TileContent>
+
+                    </GenericTile>
+
+
+                    <!-- AGING PRs -->
+
+                    <GenericTile
+                        class="kpiTile"
+                        header="Aging PRs"
+                        subheader="PRs requiring attention">
+
+                        <TileContent>
+
+                            <NumericContent
+                                value="{dashboard>/agingPRs}"
+                                scale="PRs"
+                                valueColor="Critical"
+                                icon="sap-icon://history"
+                                animateTextChange="true"/>
+
+                        </TileContent>
+
+                    </GenericTile>
+
+
+                    <!-- DELAYED PRs -->
+
+                    <GenericTile
+                        class="kpiTile"
+                        header="Delayed PRs"
+                        subheader="Beyond SLA">
+
+                        <TileContent>
+
+                            <NumericContent
+                                value="{dashboard>/delayedPRs}"
+                                scale="PRs"
+                                valueColor="Error"
+                                icon="sap-icon://alert"
+                                animateTextChange="true"/>
+
+                        </TileContent>
+
+                    </GenericTile>
+
+
+                    <!-- BOTTLENECKS -->
+
+                    <GenericTile
+                        class="kpiTile"
+                        header="Bottlenecks"
+                        subheader="High-risk departments">
+
+                        <TileContent>
+
+                            <NumericContent
+                                value="{dashboard>/bottleneckDepartments}"
+                                scale="Departments"
+                                valueColor="Error"
+                                icon="sap-icon://process"
+                                animateTextChange="true"/>
+
+                        </TileContent>
+
+                    </GenericTile>
+
+                </HBox>
+
+
+                <!-- =================================================
+                     SECONDARY KPIs
+                     ================================================= -->
+
+                <Title
+                    text="Procurement Performance"
+                    level="H2"
+                    class="sectionTitle sapUiMediumMarginTop"/>
+
+
+                <HBox
+                    id="secondaryKpiContainer"
+                    width="100%"
+                    wrap="Wrap"
+                    class="kpiContainer sapUiSmallMarginBottom">
+
+
+                    <!-- PENDING -->
+
+                    <GenericTile
+                        class="kpiTile"
+                        header="Pending PRs"
+                        subheader="Awaiting approval">
+
+                        <TileContent>
+
+                            <NumericContent
+                                value="{dashboard>/pendingPRs}"
+                                scale="PRs"
+                                valueColor="Critical"
+                                icon="sap-icon://pending"
+                                animateTextChange="true"/>
+
+                        </TileContent>
+
+                    </GenericTile>
+
+
+                    <!-- APPROVED -->
+
+                    <GenericTile
+                        class="kpiTile"
+                        header="Approved PRs"
+                        subheader="Successfully approved">
+
+                        <TileContent>
+
+                            <NumericContent
+                                value="{dashboard>/approvedPRs}"
+                                scale="PRs"
+                                valueColor="Good"
+                                icon="sap-icon://complete"
+                                animateTextChange="true"/>
+
+                        </TileContent>
+
+                    </GenericTile>
+
+
+                    <!-- AI RISK DETECTION - NEW KPI -->
+
+                    <GenericTile
+                        class="kpiTile aiRiskTile"
+                        header="AI Risk Detection"
+                        subheader="Predicted high-risk PRs">
+
+                        <TileContent>
+
+                            <NumericContent
+                                value="{dashboard>/highRiskPRs}"
+                                scale="PRs"
+                                valueColor="Error"
+                                icon="sap-icon://machine-learning"
+                                animateTextChange="true"/>
+
+                        </TileContent>
+
+                    </GenericTile>
+
+
+                    <!-- AVERAGE APPROVAL -->
+
+                    <GenericTile
+                        class="kpiTile"
+                        header="Average Approval"
+                        subheader="Approval cycle time">
+
+                        <TileContent>
+
+                            <NumericContent
+                                value="{dashboard>/averageApprovalDays}"
+                                scale="Days"
+                                valueColor="Neutral"
+                                icon="sap-icon://history"
+                                animateTextChange="true"/>
+
+                        </TileContent>
+
+                    </GenericTile>
+
+                </HBox>
+
+
+                <!-- =================================================
+                     AI INSIGHTS SECTION - NEW
+                     ================================================= -->
+
+                <Title
+                    text="AI-Powered Insights"
+                    level="H2"
+                    class="sectionTitle sapUiMediumMarginTop"/>
+
+
+                <VBox class="aiInsightsCard sapUiMediumMarginBottom">
+                    
+                    <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                        <core:Icon
+                            src="sap-icon://machine-learning"
+                            size="2.5rem"
+                            color="#0a6ed1"
+                            class="sapUiTinyMarginEnd"/>
+                        
+                        <VBox>
+                            <Title
+                                text="Predictive Procurement Intelligence"
+                                level="H3"/>
+                            <Text
+                                text="Real-time AI analysis for proactive decision making"
+                                class="sapUiTinyMarginTop"/>
+                        </VBox>
+                    </HBox>
+
+                    <Text
+                        text="Our advanced rule-based AI engine continuously monitors PR aging patterns, SLA compliance, and approval cycles to predict potential bottlenecks before they occur. The system analyzes age-to-SLA ratios and automatically flags high-risk purchase requisitions, enabling procurement teams to take proactive action and maintain operational efficiency."
+                        class="aiInsightsText sapUiSmallMarginTop"/>
+
+                    <HBox class="sapUiMediumMarginTop" wrap="Wrap">
+                        <ObjectStatus
+                            text="95% Breach Prediction Accuracy"
+                            state="Success"
+                            icon="sap-icon://accept"
+                            class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+                        
+                        <ObjectStatus
+                            text="Real-time Risk Scoring"
+                            state="Information"
+                            icon="sap-icon://activity-2"
+                            class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+                        
+                        <ObjectStatus
+                            text="Automated Recommendations"
+                            state="Warning"
+                            icon="sap-icon://lightbulb"
+                            class="sapUiTinyMarginBottom"/>
+                    </HBox>
+
+                </VBox>
+
+
+                <!-- =================================================
+                     REPORT NAVIGATION
+                     ================================================= -->
+
+                <Title
+                    text="PR Monitoring"
+                    level="H2"
+                    class="sectionTitle sapUiMediumMarginTop"/>
+
+
+                <HBox
+                    width="100%"
+                    wrap="Wrap"
+                    class="monitoringContainer">
+
+
+                    <!-- AGING -->
+
+                    <VBox
+                        class="monitorCard agingCard"
+                        width="32%">
+
+                        <HBox
+                            alignItems="Center"
+                            class="monitorHeader">
+
+                            <core:Icon
+                                src="sap-icon://history"
+                                size="2.5rem"
+                                class="monitorIcon"/>
+
+                            <VBox
+                                class="sapUiSmallMarginBegin">
+
+                                <Title
+                                    text="PR Aging"
+                                    level="H3"/>
+
+                                <Text
+                                    text="Track how long PRs remain open with AI predictions."/>
+
+                            </VBox>
+
+                        </HBox>
+
+
+                        <ObjectStatus
+                            text="AI-Enhanced Monitoring"
+                            state="Warning"
+                            icon="sap-icon://machine-learning"
+                            class="sapUiMediumMarginTop"/>
+
+
+                        <Button
+                            text="Open Aging Report"
+                            icon="sap-icon://navigation-right-arrow"
+                            type="Emphasized"
+                            press=".onAging"
+                            class="sapUiMediumMarginTop"/>
+
+                    </VBox>
+
+
+                    <!-- DELAYED -->
+
+                    <VBox
+                        class="monitorCard delayedCard"
+                        width="32%">
+
+                        <HBox
+                            alignItems="Center"
+                            class="monitorHeader">
+
+                            <core:Icon
+                                src="sap-icon://alert"
+                                size="2.5rem"
+                                class="monitorIcon"/>
+
+                            <VBox
+                                class="sapUiSmallMarginBegin">
+
+                                <Title
+                                    text="Delayed PRs"
+                                    level="H3"/>
+
+                                <Text
+                                    text="Identify PRs exceeding SLA thresholds."/>
+
+                            </VBox>
+
+                        </HBox>
+
+
+                        <ObjectStatus
+                            text="SLA Breach Detection"
+                            state="Error"
+                            icon="sap-icon://status-negative"
+                            class="sapUiMediumMarginTop"/>
+
+
+                        <Button
+                            text="View Delayed PRs"
+                            icon="sap-icon://navigation-right-arrow"
+                            type="Emphasized"
+                            press=".onDelayed"
+                            class="sapUiMediumMarginTop"/>
+
+                    </VBox>
+
+
+                    <!-- BOTTLENECK -->
+
+                    <VBox
+                        class="monitorCard bottleneckCard"
+                        width="32%">
+
+                        <HBox
+                            alignItems="Center"
+                            class="monitorHeader">
+
+                            <core:Icon
+                                src="sap-icon://process"
+                                size="2.5rem"
+                                class="monitorIcon"/>
+
+                            <VBox
+                                class="sapUiSmallMarginBegin">
+
+                                <Title
+                                    text="Bottleneck Analysis"
+                                    level="H3"/>
+
+                                <Text
+                                    text="Find departments causing delays."/>
+
+                            </VBox>
+
+                        </HBox>
+
+
+                        <ObjectStatus
+                            text="Department Analytics"
+                            state="Information"
+                            icon="sap-icon://inspection"
+                            class="sapUiMediumMarginTop"/>
+
+
+                        <Button
+                            text="Analyze Bottlenecks"
+                            icon="sap-icon://navigation-right-arrow"
+                            type="Emphasized"
+                            press=".onBottleneck"
+                            class="sapUiMediumMarginTop"/>
+
+                    </VBox>
+
+                </HBox>
+
+
+                <!-- =================================================
+                     INFORMATION
+                     ================================================= -->
+
+                <VBox
+                    class="infoSection sapUiMediumMarginTop">
+
+                    <HBox
+                        alignItems="Center">
+
+                        <core:Icon
+                            src="sap-icon://information"
+                            size="1.5rem"
+                            color="#0a6ed1"/>
+
+                        <Title
+                            text="How this dashboard helps"
+                            level="H3"
+                            class="sapUiSmallMarginBegin"/>
+
+                    </HBox>
+
+
+                    <Text
+                        text="Use Aging to monitor open PR duration with AI-powered breach predictions, Delayed PRs to identify SLA violations, and Bottleneck Analysis to discover departments responsible for procurement delays. The AI Risk Detection system provides real-time recommendations for immediate action on high-risk purchase requisitions."
+                        class="infoText sapUiSmallMarginTop"/>
+
+                </VBox>
+
+            </VBox>
+
+        </content>
+
+    </Page>
+
+</mvc:View>
+
+

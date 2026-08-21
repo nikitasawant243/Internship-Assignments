@@ -1,0 +1,251 @@
+<edmx:Edmx
+    Version="4.0"
+    xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+
+    <edmx:DataServices>
+
+        <Schema
+            Namespace="com.sap.prtracker"
+            xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+            <Annotations
+                Target="PRTrackerService.PurchaseRequisitions">
+
+                <Annotation Term="UI.HeaderInfo">
+
+                    <Record Type="UI.HeaderInfoType">
+
+                        <PropertyValue
+                            PropertyPath="PRNumber"
+                            Property="Title"/>
+
+                        <PropertyValue
+                            PropertyPath="description"
+                            Property="Description"/>
+
+                    </Record>
+
+                </Annotation>
+
+
+                <Annotation Term="UI.LineItem">
+
+                    <Collection>
+
+                        <Record Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Value"
+                                Path="PRNumber"/>
+
+                            <PropertyValue
+                                Property="Label"
+                                String="PR Number"/>
+
+                        </Record>
+
+
+                        <Record Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Value"
+                                Path="PRItem"/>
+
+                            <PropertyValue
+                                Property="Label"
+                                String="Item"/>
+
+                        </Record>
+
+
+                        <Record Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Value"
+                                Path="material"/>
+
+                            <PropertyValue
+                                Property="Label"
+                                String="Material"/>
+
+                        </Record>
+
+
+                        <Record Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Value"
+                                Path="description"/>
+
+                            <PropertyValue
+                                Property="Label"
+                                String="Description"/>
+
+                        </Record>
+
+
+                        <Record Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Value"
+                                Path="departmentCode"/>
+
+                            <PropertyValue
+                                Property="Label"
+                                String="Department"/>
+
+                        </Record>
+
+
+                        <Record Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Value"
+                                Path="plant"/>
+
+                            <PropertyValue
+                                Property="Label"
+                                String="Plant"/>
+
+                        </Record>
+
+
+                        <Record Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Value"
+                                Path="createdDate"/>
+
+                            <PropertyValue
+                                Property="Label"
+                                String="Created Date"/>
+
+                        </Record>
+
+
+                        <Record Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Value"
+                                Path="approvalDate"/>
+
+                            <PropertyValue
+                                Property="Label"
+                                String="Approval Date"/>
+
+                        </Record>
+
+
+                        <Record Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Value"
+                                Path="PR_Age_Days"/>
+
+                            <PropertyValue
+                                Property="Label"
+                                String="PR Age (Days)"/>
+
+                        </Record>
+
+
+                        <Record Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Value"
+                                Path="Approval_Cycle_Days"/>
+
+                            <PropertyValue
+                                Property="Label"
+                                String="Approval Cycle (Days)"/>
+
+                        </Record>
+
+
+                        <Record Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Value"
+                                Path="slaDays"/>
+
+                            <PropertyValue
+                                Property="Label"
+                                String="SLA (Days)"/>
+
+                        </Record>
+
+
+                        <Record Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Value"
+                                Path="SLA_Status"/>
+
+                            <PropertyValue
+                                Property="Label"
+                                String="SLA Status"/>
+
+                        </Record>
+
+
+                        <Record Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Value"
+                                Path="Risk_Level"/>
+
+                            <PropertyValue
+                                Property="Label"
+                                String="Risk Level"/>
+
+                        </Record>
+
+
+                        <Record Type="UI.DataField">
+
+                            <PropertyValue
+                                Property="Value"
+                                Path="SLA_Breach_Probability"/>
+
+                            <PropertyValue
+                                Property="Label"
+                                String="Breach Probability"/>
+
+                        </Record>
+
+                    </Collection>
+
+                </Annotation>
+
+
+                <Annotation Term="UI.SelectionFields">
+
+                    <Collection>
+
+                        <PropertyPath>PRNumber</PropertyPath>
+
+                        <PropertyPath>departmentCode</PropertyPath>
+
+                        <PropertyPath>plant</PropertyPath>
+
+                        <PropertyPath>status</PropertyPath>
+
+                        <PropertyPath>approvalStatus</PropertyPath>
+
+                        <PropertyPath>SLA_Status</PropertyPath>
+
+                        <PropertyPath>Risk_Level</PropertyPath>
+
+                        <PropertyPath>createdDate</PropertyPath>
+
+                    </Collection>
+
+                </Annotation>
+
+            </Annotations>
+
+        </Schema>
+
+    </edmx:DataServices>
+
+</edmx:Edmx>

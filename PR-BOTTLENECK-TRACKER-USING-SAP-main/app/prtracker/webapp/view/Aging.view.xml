@@ -1,0 +1,379 @@
+<mvc:View
+    controllerName="prtracker.controller.Aging"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Page
+        id="agingPage"
+        title="PR Aging Report"
+        showNavButton="false"
+        class="agingReportPage">
+
+        <content>
+
+            <VBox class="sapUiResponsiveContentPadding">
+
+                <!-- Modern Header Section -->
+                <VBox class="modernHeader sapUiMediumMarginBottom">
+                    
+                    <HBox alignItems="Center" justifyContent="SpaceBetween">
+                        
+                        <VBox>
+                            <Title
+                                text="PR Aging Analysis"
+                                level="H1"
+                                class="pageTitle"/>
+                            
+                            <Text
+                                text="Monitor purchase requisition aging with AI-powered predictions"
+                                class="pageSubtitle"/>
+                        </VBox>
+
+                        <Button
+                            text="Refresh Data"
+                            icon="sap-icon://refresh"
+                            type="Emphasized"
+                            press=".onRefresh"
+                            class="refreshButton"/>
+
+                    </HBox>
+
+                </VBox>
+
+
+                <!-- AI Insights Card -->
+                <VBox class="aiInsightsCard sapUiMediumMarginBottom">
+                    
+                    <HBox alignItems="Center" class="sapUiSmallMarginBottom">
+                        <core:Icon
+                            src="sap-icon://machine-learning"
+                            size="2rem"
+                            color="#0a6ed1"
+                            class="sapUiTinyMarginEnd"/>
+                        
+                        <Title
+                            text="AI Risk Detection"
+                            level="H3"/>
+                    </HBox>
+
+                    <Text
+                        text="Advanced rule-based AI analyzes PR age and SLA data to predict potential breaches. High-risk PRs are automatically flagged for immediate attention."
+                        class="aiInsightsText"/>
+
+                    <HBox class="sapUiSmallMarginTop" wrap="Wrap">
+                        <ObjectStatus
+                            text="Real-time Analysis"
+                            state="Success"
+                            icon="sap-icon://activity-2"
+                            class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+                        
+                        <ObjectStatus
+                            text="Predictive Intelligence"
+                            state="Information"
+                            icon="sap-icon://lightbulb"
+                            class="sapUiTinyMarginEnd sapUiTinyMarginBottom"/>
+                        
+                        <ObjectStatus
+                            text="Automated Recommendations"
+                            state="Warning"
+                            icon="sap-icon://warning"
+                            class="sapUiTinyMarginBottom"/>
+                    </HBox>
+
+                </VBox>
+
+
+                <!-- Modern Table Card -->
+                <VBox class="tableCard">
+
+                    <!-- Table Toolbar -->
+                    <Toolbar class="tableToolbar">
+
+                        <Title
+                            text="Aging Report Details"
+                            level="H4"/>
+
+                        <ToolbarSpacer/>
+
+                        <SearchField
+                            id="agingSearch"
+                            width="300px"
+                            placeholder="Search PR, Department, Status..."
+                            liveChange=".onSearch"
+                            class="modernSearch"/>
+
+                    </Toolbar>
+
+
+                    <!-- Enhanced Table -->
+                    <Table
+                        id="agingTable"
+                        items="{
+                            path: '/PRAgingReport'
+                        }"
+                        growing="true"
+                        growingThreshold="20"
+                        sticky="ColumnHeaders"
+                        mode="None"
+                        class="modernTable"
+                        noDataText="No aging records found">
+
+
+                        <columns>
+
+                            <Column width="10%">
+                                <Text text="PR Number" class="columnHeader"/>
+                            </Column>
+
+                            <Column width="6%">
+                                <Text text="Item" class="columnHeader"/>
+                            </Column>
+
+                            <Column width="12%">
+                                <Text text="Department" class="columnHeader"/>
+                            </Column>
+
+                            <Column width="10%">
+                                <Text text="Created Date" class="columnHeader"/>
+                            </Column>
+
+                            <Column width="8%" hAlign="Center">
+                                <Text text="Age (Days)" class="columnHeader"/>
+                            </Column>
+
+                            <Column width="8%" hAlign="Center">
+                                <Text text="SLA (Days)" class="columnHeader"/>
+                            </Column>
+
+                            <Column width="10%">
+                                <Text text="Aging Status" class="columnHeader"/>
+                            </Column>
+
+                            <Column width="10%">
+                                <Text text="SLA Status" class="columnHeader"/>
+                            </Column>
+
+                            <Column width="8%">
+                                <Text text="Risk Level" class="columnHeader"/>
+                            </Column>
+
+                            <!-- AI PREDICTION COLUMNS -->
+
+                            <Column width="12%">
+                                <HBox alignItems="Center">
+                                    <core:Icon
+                                        src="sap-icon://machine-learning"
+                                        size="1rem"
+                                        color="#0a6ed1"
+                                        class="sapUiTinyMarginEnd"/>
+                                    <Text text="AI Prediction" class="columnHeader aiColumnHeader"/>
+                                </HBox>
+                            </Column>
+
+                            <Column width="8%" hAlign="Center">
+                                <Text text="Risk %" class="columnHeader aiColumnHeader"/>
+                            </Column>
+
+                            <Column width="14%">
+                                <Text text="Recommendation" class="columnHeader aiColumnHeader"/>
+                            </Column>
+
+                        </columns>
+
+
+                        <items>
+
+                            <ColumnListItem class="tableRow">
+
+                                <cells>
+
+                                    <!-- PR Number -->
+                                    <ObjectIdentifier
+                                        title="{PRNumber}"
+                                        class="prIdentifier"/>
+
+                                    <!-- Item -->
+                                    <Text
+                                        text="{PRItem}"
+                                        class="cellText"/>
+
+                                    <!-- Department -->
+                                    <Text
+                                        text="{departmentName}"
+                                        class="cellText"/>
+
+                                    <!-- Created Date -->
+                                    <Text
+                                        text="{
+                                            path: 'createdDate',
+                                            type: 'sap.ui.model.odata.type.DateTimeOffset',
+                                            formatOptions: {
+                                                pattern: 'MMM dd, yyyy'
+                                            }
+                                        }"
+                                        class="cellText"/>
+
+                                    <!-- Age Days -->
+                                    <ObjectNumber
+                                        number="{ageDays}"
+                                        unit="Days"
+                                        emphasized="true"
+                                        state="{
+                                            path: 'agingCategory',
+                                            formatter: '.formatter.agingState'
+                                        }"/>
+
+                                    <!-- SLA Days -->
+                                    <ObjectNumber
+                                        number="{slaDays}"
+                                        unit="Days"
+                                        class="slaNumber"/>
+
+                                    <!-- Aging Status -->
+                                    <ObjectStatus
+                                        text="{agingCategory}"
+                                        state="{
+                                            path: 'agingCategory',
+                                            formatter: '.formatter.agingState'
+                                        }"
+                                        class="statusBadge"/>
+
+                                    <!-- SLA Status -->
+                                    <ObjectStatus
+                                        text="{slaStatus}"
+                                        state="{
+                                            path: 'slaStatus',
+                                            formatter: '.formatter.slaState'
+                                        }"
+                                        class="statusBadge"/>
+
+                                    <!-- Risk Level -->
+                                    <ObjectStatus
+                                        text="{riskLevel}"
+                                        state="{
+                                            path: 'riskLevel',
+                                            formatter: '.formatter.riskState'
+                                        }"
+                                        class="statusBadge"/>
+
+                                    <!-- AI PREDICTION WITH VISUAL INDICATOR -->
+                                    <VBox class="aiPredictionCell">
+                                        
+                                        <!-- Prediction Badge -->
+                                        <ObjectStatus
+                                            text="{
+                                                parts: [
+                                                    {path: 'ageDays'},
+                                                    {path: 'slaDays'}
+                                                ],
+                                                formatter: '.formatter.calculatePrediction'
+                                            }"
+                                            state="{
+                                                parts: [
+                                                    {path: 'ageDays'},
+                                                    {path: 'slaDays'}
+                                                ],
+                                                formatter: '.formatter.calculateRiskState'
+                                            }"
+                                            icon="sap-icon://machine-learning"
+                                            class="aiPredictionBadge"/>
+                                        
+                                        <!-- Risk Slider/Progress Bar -->
+                                        <ProgressIndicator
+                                            percentValue="{
+                                                parts: [
+                                                    {path: 'ageDays'},
+                                                    {path: 'slaDays'}
+                                                ],
+                                                formatter: '.formatter.calculateRiskPercentage'
+                                            }"
+                                            displayValue="{
+                                                parts: [
+                                                    {path: 'ageDays'},
+                                                    {path: 'slaDays'}
+                                                ],
+                                                formatter: '.formatter.calculateRiskPercentage'
+                                            }%"
+                                            state="{
+                                                parts: [
+                                                    {path: 'ageDays'},
+                                                    {path: 'slaDays'}
+                                                ],
+                                                formatter: '.formatter.calculateRiskState'
+                                            }"
+                                            width="100%"
+                                            class="riskSlider sapUiTinyMarginTop"/>
+                                    
+                                    </VBox>
+
+                                    <!-- RISK PERCENTAGE WITH ICON -->
+                                    <VBox class="riskPercentageCell" alignItems="Center">
+                                        <core:Icon
+                                            src="sap-icon://warning"
+                                            size="1.5rem"
+                                            color="{
+                                                parts: [
+                                                    {path: 'ageDays'},
+                                                    {path: 'slaDays'}
+                                                ],
+                                                formatter: '.formatter.calculateIconColor'
+                                            }"
+                                            class="sapUiTinyMarginBottom"/>
+                                        
+                                        <ObjectNumber
+                                            number="{
+                                                parts: [
+                                                    {path: 'ageDays'},
+                                                    {path: 'slaDays'}
+                                                ],
+                                                formatter: '.formatter.calculateRiskPercentage'
+                                            }"
+                                            unit="%"
+                                            emphasized="true"
+                                            state="{
+                                                parts: [
+                                                    {path: 'ageDays'},
+                                                    {path: 'slaDays'}
+                                                ],
+                                                formatter: '.formatter.calculateRiskState'
+                                            }"
+                                            class="riskPercentageNumber"/>
+                                    </VBox>
+
+                                    <!-- RECOMMENDATION -->
+                                    <ObjectStatus
+                                        text="{
+                                            parts: [
+                                                {path: 'ageDays'},
+                                                {path: 'slaDays'}
+                                            ],
+                                            formatter: '.formatter.calculateRecommendation'
+                                        }"
+                                        state="{
+                                            parts: [
+                                                {path: 'ageDays'},
+                                                {path: 'slaDays'}
+                                            ],
+                                            formatter: '.formatter.calculateRiskState'
+                                        }"
+                                        icon="sap-icon://message-information"
+                                        class="recommendationBadge"/>
+
+                                </cells>
+
+                            </ColumnListItem>
+
+                        </items>
+
+                    </Table>
+
+                </VBox>
+
+            </VBox>
+
+        </content>
+
+    </Page>
+
+</mvc:View>

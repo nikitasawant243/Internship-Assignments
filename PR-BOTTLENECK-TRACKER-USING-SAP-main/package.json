@@ -1,0 +1,32 @@
+{
+  "name": "pr-bottleneck-tracker",
+  "version": "1.0.0",
+  "description": "SAP Purchase Requisition Bottleneck Tracker",
+  "private": true,
+  "dependencies": {
+    "@cap-js/sqlite": "^2",
+    "@sap/cds": "^9"
+  },
+  "devDependencies": {
+    "@sap/cds-dk": "^9",
+    "cds-plugin-ui5": "^0.17.0"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds watch",
+    "watch-prtracker": "cds watch --open prtracker/index.html?sap-ui-xx-viewCache=false --livereload false"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite"
+      }
+    }
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/prtracker"
+  ]
+}
